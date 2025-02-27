@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team 6632 Scouting App</title>
+    <style>
+    @font-face {
+      font-family: "Jetbrains";
+      src: url(./fonts/JETBRAINSMONONL-MEDIUM.TTF);
+    }
+    @font-face {
+      font-family: "Jetbrains Bold";
+      src: url(./fonts/JETBRAINSMONONL-BOLD.TTF);
+    }
+
+    input {
+      font-family: Jetbrains;
+    }
+    label, p {
+      color: #FBF1C7;
+    }
+    /* Preset Styles */
+    .flex {
+      display: flex;
+    }
+    .col {
+      flex-direction: column;
+    }
+    .underline {
+      margin-top: 12px;
+      height: 2px;
+      width: 100%;
+      background-color: #FBF1C7;
+    }
+    /* Normal Styling */
+    .content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      justify-content: center;
+      background-color: #1D2021;
+      align-items: center;
+      font-family: Jetbrains;
+    }
+    .header {
+      width: 100%;
+      font-size: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #FBF1C7;
+      font-family: Jetbrains Bold;
+    }
+    .main-content {
+      width: 800px;
+    }
+    .sub-container {
+      gap: 16px;
+    }
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    input {
+      padding: 15px 21px;
+      background-color: #3C3836;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+    }
+    .box {
+      width: 44px;
+      box-sizing: border-box;
+      height: 44px;
+      border-radius: 8px; 
+    }
+    .bg-red {
+      background-color: #cc241d;
+    }
+    .bg-blue{
+      background-color: #076678;
+    }
+    .submit-button {
+      padding: 8px 0px;
+    }
+    .color-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 8px 0px 0px;
+    }
+    .blue_text {
+      color: #076678;
+    }
+    .red_text {
+      color: #cc241d;
+    }
+    .blue {
+      background-color: #076678;
+    }
+    .red {
+      background-color: #cc241d;
+    }
+    button {
+      font-family: Jetbrains;
+      border: none;
+      color: #ffffff;
+    }
+    .active {
+      border: 1px solid #000000;
+    }
+
+    </style>
+  </head>
+  <body>
+    <div class="flex content">
+      <div class="flex col main-content">
+        <div id="header" class="header">Team 6632 Scouting App <div class="underline"></div></div>
+        <div class="flex col sub-container">
+          <div class="flex color-container">            
+            <p>Select Color:</p> 
+            <div style="gap: 8px;" class="flex">
+              <div id="redBox" class="box bg-red"></div>
+              <div id="blueBox" class="box bg-blue"></div>
+            </div>
+          </div>
+          <form id="scoutForm" class="flex col sub-container">
+            <div class="input-container col">
+              <label>Scout id:</label>
+              <input id="scoutId" placeholder="name" type="text">
+            </div>
+            <div class="input-container col">
+              <label>Team number:</label>
+              <input id="teamNumber" type="number">
+            </div>
+            <div class="input-container col">
+              <label>Match number</label>
+              <input id="matchNumber" type="number">
+            </div>
+            <div class="input-container col">
+              <label>Team position</label>
+              <input id="teamPosition" type="number">
+            </div>
+            <button id="submitButton" class="submit-button hidden" type="submit">Continue →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    let teamColor = "";
+
+    document.getElementById("redBox").addEventListener("click", function() {
+      teamColor = "red"
+    });
+    document.getElementById("blueBox").addEventListener("click", function() {
+      teamColor = "blue"
+    });
+
+    function setTeam(color) {
+      teamColor = color;
+      document.getElementById("redBox").classList.toggle("active", color === "red");
+      document.getElementById("blueBox").classList.toggle("active", color === "blue");
+      document.getElementById("submitButton").classList.remove("hidden");
+    }
+
+    document.getElementById("scoutForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const scoutId = document.getElementById("scoutId").value.trim();
+      const teamNumber = parseInt(document.getElementById("teamNumber").value, 10);
+      const matchNumber = parseInt(document.getElementById("matchNumber").value, 10);
+      const teamPosition = parseInt(document.getElementById("teamPosition").value, 10);
+
+      
+      if (!scoutId ) {
+        console.error("Scout ID is missing");
+        return;
+      }
+      if (!matchNumber) {
+        console.error("Match Number is missing");
+        return;
+      }
+      if (!teamPosition) {
+        console.error("Team Position is missing");
+        return;
+      }
+      if (!teamNumber) {
+        console.error("Team Number is missing is missing");
+        return;
+      }
+      if (!teamColor) {
+        console.error("Team Color is missing");
+        return;
+      }
+      if (teamNumber <= 0) {
+        console.error("Team number is invalid");
+        return;
+      }
+      if (matchNumber <= 0) {
+        console.error("Match number is invalid");
+        return;
+      }
+      if (teamPosition <= 0) {
+        console.error("Team position is invalid");
+        return;
+      }
+
+      console.log("All verified");
+      console.log("Scout ID:", scoutId);
+      console.log("Team Number:", teamNumber);
+      console.log("Match Number:", matchNumber);
+      console.log("Team Position:", teamPosition);
+      console.log("Team Color:", teamColor);
+
+
+
+      localStorage.setItem("scoutId", scoutId)           
+      localStorage.setItem("Team Number:", teamNumber);
+      localStorage.setItem("Match Number:", matchNumber);
+      localStorage.setItem("Team Position:", teamPosition);
+      localStorage.setItem("Team Color:", teamColor);
+      setTimeout(() => {
+        window.location.href = "map.html";
+        console.log("Navigation successful");
+      }, 0);
+    });
+    </script>
+  </body>
+</html>

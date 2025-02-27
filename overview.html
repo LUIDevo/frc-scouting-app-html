@@ -1,0 +1,231 @@
+<html>
+  <head>
+    <title>Overview</title>
+    <style>
+      @font-face {
+        font-family: "Jetbrains";
+        src: url(./fonts/JETBRAINSMONONL-MEDIUM.TTF);
+      }
+      .flex {
+        display: flex;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Jetbrains, sans-serif;
+        background-color: #1D2021;
+        color: #FBF1C7;
+      }
+      .content {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+      }
+      .left {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 40%;
+      }
+      .right {
+        width: 55%;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+      .card {
+        padding: 8px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color:#282828 ;
+      }
+      .card-container-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .card-container {
+        display: flex;
+        gap: 8px;
+      }
+      .header {
+        font-size: 44px;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .underline {
+        height: 2px;
+        background-color: #FBF1C7;
+        width: 100%;
+      }
+      .counter-container {
+        background: #282828;
+        padding: 15px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 62%;
+        min-width: 150px;
+        text-align: center;
+      }
+      .counter-label {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+      .counter-value {
+        font-size: 22px;
+        font-weight: bold;
+        margin: 5px 0;
+      }
+      .button-container {
+        display: flex;
+        gap: 10px;
+      }
+      button {
+        background: #504945;
+        color: #FBF1C7;
+        border: none;
+        padding: 8px 12px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      button:hover {
+        background: #665C54;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="left">
+        <div class="header">Team 6632 Scouting App</div>
+        <div class="underline"></div>
+        <div class="card-container-container">
+          Climb level:
+          <div class="card-container">
+            <div class="card">Low</div>
+            <div class="card">High</div>
+          </div>
+        </div>
+        <div class="card-container-container">
+          Penalty:
+          <div class="card-container">
+            <div class="card">No</div>
+            <div class="card">Yes</div>
+          </div>
+        </div>
+        <div class="input-container col">
+          <label>Scout name</label>
+          <input id="scoutName" type="number">
+        </div>
+        <div class="input-container col">
+          <label>Team position</label>
+          <input id="teamPosition" type="number">
+        </div>
+        <div class="input-container col">
+          <label>Match Number</label>
+          <input id="matchNumber" type="number">
+        </div>
+        <div class="input-container col">
+          <label>Team Name</label>
+          <input id="teamName" type="number">
+        </div>
+      </div>
+      <div class="right">
+        <div id="missed-goals" class="counter-container"></div>
+        <div id="human-goals" class="counter-container"></div>
+        <div id="net-goals" class="counter-container"></div>
+        <div id="processor-goals" class="counter-container"></div>
+        <div id="L1" class="counter-container"></div>
+        <div id="L2" class="counter-container"></div>
+        <div id="L3" class="counter-container"></div>
+        <div id="L4" class="counter-container"></div>
+      </div>
+    </div>
+
+    <script>
+      const values = {
+        num_human_goals: 0,
+        num_processor_goals: 0,
+        num_missed_goals: 0,
+        num_net_goals: 0,
+        num_l1: 0,
+        num_l2: 0,
+        num_l3: 0,
+        num_l4: 0
+      };
+
+      // Load values from localStorage
+      Object.keys(values).forEach((key) => {
+        values[key] = parseInt(localStorage.getItem(key)) || 0;
+      });
+
+      // Labels for each counter
+      const labels = {
+        num_missed_goals: "Missed Goals",
+        num_human_goals: "Human Goals",
+        num_net_goals: "Net Goals",
+        num_processor_goals: "Processor Goals",
+        num_l1: "L1 Score",
+        num_l2: "L2 Score",
+        num_l3: "L3 Score",
+        num_l4: "L4 Score"
+      };
+
+      // Update UI
+const updateUI = () => {
+  document.getElementById("missed-goals").innerHTML = createCounter("num_missed_goals", values.num_missed_goals, "Missed Goals");
+  document.getElementById("human-goals").innerHTML = createCounter("num_human_goals", values.num_human_goals, "Human Goals");
+  document.getElementById("net-goals").innerHTML = createCounter("num_net_goals", values.num_net_goals, "Net Goals");
+  document.getElementById("processor-goals").innerHTML = createCounter("num_processor_goals", values.num_processor_goals, "Processor Goals");
+  document.getElementById("L1").innerHTML = createCounter("num_l1", values.num_l1, "L1");
+  document.getElementById("L2").innerHTML = createCounter("num_l2", values.num_l2, "L2");
+  document.getElementById("L3").innerHTML = createCounter("num_l3", values.num_l3, "L3");
+  document.getElementById("L4").innerHTML = createCounter("num_l4", values.num_l4, "L4");
+
+  // Reattach event listeners
+  attachEventListeners();
+};
+
+      // Create HTML structure for a counter
+const createCounter = (key, value, label) => {
+  return `
+    <div class="counter">
+      <label>${label}</label>
+      <div>
+        <button data-key="${key}" data-action="decrement">-</button>
+        <span>${value}</span>
+        <button data-key="${key}" data-action="increment">+</button>
+      </div>
+    </div>
+  `;
+};
+
+      // Attach event listeners to buttons
+      const attachEventListeners = () => {
+        document.querySelectorAll("button").forEach((button) => {
+          button.addEventListener("click", (event) => {
+            const key = event.target.getAttribute("data-key");
+            const action = event.target.getAttribute("data-action");
+
+            if (action === "increment") values[key]++;
+            if (action === "decrement") values[key]--;
+
+            localStorage.setItem(key, values[key]);
+            updateUI();
+          });
+        });
+      };
+
+      // Initialize UI
+      updateUI();
+    </script>
+  </body>
+</html>

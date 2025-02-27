@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team 6632 Scouting App</title>
+    <style>
+        .flex {
+            display: flex;
+        }
+        .col {
+            flex-direction: column;
+        }
+        .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            background-color: #1D2021;
+            align-items: center;
+            font-family: Jetbrains;
+        }
+        label, p {
+            color: #FBF1C7;
+        }
+        .header {
+            width: 100%;
+            font-size: 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #FBF1C7;
+        }
+        .underline {
+            height: 2px;
+            width: 100%;
+            background-color: #FBF1C7;
+        }
+        .box-container {
+            display: flex;
+            gap: 10px;
+        }
+        .box {
+            width: 50px;
+            height: 50px;
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex content">
+        <div class="flex col main-content">
+            <div class="header">Team 663 Scouting App <div class="underline"></div></div>
+            <br>
+            <p id="match-number">Match Number: </p>
+            <p id="team-color">Team color: </p>
+            <div class="box-container">
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+            </div>
+            <button id="continue-btn">Continue</button>
+        </div>
+    </div>
+
+    <script>
+        // Simulating Svelte stores with JS variables
+        let match_number = 0;
+        let team_color = "";
+
+        // Function to update UI dynamically
+        function updateUI() {
+            document.getElementById("match-number").innerText = `Match Number: ${match_number}`;
+            document.getElementById("team-color").innerText = `Team color: ${team_color}`;
+        }
+
+        // Simulating a navigation function (SvelteKit's goto equivalent)
+        function validate() {
+            setTimeout(() => {
+                window.location.href = 'match.html'; // Redirects to /match
+            }, 0);
+        }
+
+        // Attach event listener to button
+        document.getElementById("continue-btn").addEventListener("click", validate);
+
+        // Initialize UI
+        updateUI();
+    </script>
+</body>
+</html>
