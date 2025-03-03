@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <title>Dashboard</title
+  </head>
+  <body>
+    <div class="content-container">
+      <div class="content">
+        <div class="top-content">
+          <div class="header">Your scouting logs</div>
+          <button onclick="clicked()">Create new log</button>
+        </div>
+        <div id="card-container" class="card-container"></div>
+      </div>
+    </div>
+    <script>
+    function clicked() {
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 0);
+    }
+    </script>
+    <style>
+    @font-face {
+      font-family: "Jetbrains";
+      src: url(./fonts/JETBRAINSMONONL-MEDIUM.TTF);
+    }
+    @font-face {
+      font-family: "Jetbrains Bold";
+      src: url(./fonts/JETBRAINSMONONL-BOLD.TTF);
+    }
+    .card {
+      border-radius: 8px;
+      background-color: #ffffff;
+      border: 1px solid #1D1D1D;
+      display: flex;
+    }
+    .top-content {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header {
+      font-size: 32px;
+    }
+    button {
+    padding: 16px 32px;
+      background-color: #2B40F5;
+      gap: 16px;
+      display: flex;
+      font-family: Jetbrains;
+      color: white;
+    }
+
+    .content-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Jetbrains;
+    }
+    .content {
+      width: 80%;
+
+    }
+    body, html {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    </style>
+  </body>
+</html>

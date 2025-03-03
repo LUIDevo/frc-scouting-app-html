@@ -13,8 +13,8 @@
         <div role="button" aria-label="Undo" tabindex="0" id="undoBtn" class="undo-content-container">
           <div class="undo-container">
             <div class="undo-static"> 
-              <svg style="zoom: 0.75;" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18.6667 50.6667V45.3333H37.6001C40.4001 45.3333 42.8339 44.4444 44.9014 42.6667C46.969 40.8889 48.0019 38.6667 48.0001 36C47.9983 33.3333 46.9654 31.1111 44.9014 29.3333C42.8374 27.5556 40.4036 26.6667 37.6001 26.6667H20.8001L27.7334 33.6L24.0001 37.3333L10.6667 24L24.0001 10.6667L27.7334 14.4L20.8001 21.3333H37.6001C41.9112 21.3333 45.6116 22.7333 48.7014 25.5333C51.7912 28.3333 53.3352 31.8222 53.3334 36C53.3316 40.1778 51.7876 43.6667 48.7014 46.4667C45.6152 49.2667 41.9148 50.6667 37.6001 50.6667H18.6667Z" fill="white"/>
+              <svg style="zoom: 0.5;" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.6667 50.6667V45.3333H37.6001C40.4001 45.3333 42.8339 44.4444 44.9014 42.6667C46.969 40.8889 48.0019 38.6667 48.0001 36C47.9983 33.3333 46.9654 31.1111 44.9014 29.3333C42.8374 27.5556 40.4036 26.6667 37.6001 26.6667H20.8001L27.7334 33.6L24.0001 37.3333L10.6667 24L24.0001 10.6667L27.7334 14.4L20.8001 21.3333H37.6001C41.9112 21.3333 45.6116 22.7333 48.7014 25.5333C51.7912 28.3333 53.3352 31.8222 53.3334 36C53.3316 40.1778 51.7876 43.6667 48.7014 46.4667C45.6152 49.2667 41.9148 50.6667 37.6001 50.6667H18.6667Z" fill="black"/>
               </svg>
               Undo last action:
             </div>
@@ -180,7 +180,7 @@ const handleKeyDown = (event) => {
 window.addEventListener('keydown', handleKeyDown);
 
 document.getElementById('undoBtn').addEventListener('click', undoLatestAction);
-</script>
+    </script>
 
     <style lang="css">
     @font-face {
@@ -201,13 +201,13 @@ document.getElementById('undoBtn').addEventListener('click', undoLatestAction);
     width: 100vw;
     height: 100vh;
     justify-content: center;
-    background-color: #1D2021;
+    background-color: #ffff;
     align-items: center;
     font-family: Jetbrains;
     }
     .main-content {
-    width: 90%;
-    height: 60%;
+    width: 80%;
+    height: 50%;
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -224,16 +224,16 @@ document.getElementById('undoBtn').addEventListener('click', undoLatestAction);
     }
 
     .card {
-    border-radius: 8px;
-    border: 2px solid #e0e0e0;
+    border-radius: 2px;
     padding: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     user-select: none;
-    font-weight: bold;
-    background-color: #222;
-    color: white;
+    font-weight: 800;
+    font-size: 24px;
+    border: 1px solid black;
+    color: black;
     }
 
     /* Left column items take two rows each */
@@ -256,7 +256,7 @@ document.getElementById('undoBtn').addEventListener('click', undoLatestAction);
     /* Continue button spans both columns */
     .continue-btn {
     grid-column: span 2;
-    background-color: red;
+    background-color: #2B40F5;
     color: white;
     padding: 12px;
     text-align: center;
@@ -281,6 +281,10 @@ document.getElementById('undoBtn').addEventListener('click', undoLatestAction);
     z-index: 1000;
     top: 45%;
     left: 50%;
+    font-size: 16px;
+    }
+    .net::before, .human::before, .processor::before {
+    left: 70%;
     }
     .missed-goal::before {
     position: relative;
@@ -288,13 +292,14 @@ document.getElementById('undoBtn').addEventListener('click', undoLatestAction);
     top: 45%;
     content: "i";
     /*if changes to missed goal, and pseudo class not visible, change later.*/
-    left: 60%;
+    left: 65%;
     }
     .net::before {
     content: "j";
     }
     .processor::before {
     content: "k";
+    left: 90%;
     }
     .human::before {
     content: "l";
@@ -317,13 +322,13 @@ document.getElementById('undoBtn').addEventListener('click', undoLatestAction);
     align-items: center;
     }
     .undo-container {
-    color: white;
+    color: black;
     display: flex;
     align-items: center;
     width: auto;
     padding: 10px 44px 10px 10px;
-    border: solid 2px #F9F5D7;
-    border-radius: 12px;
+    border: solid 1px black;
+    border-radius: 4px;
     font-size: 24px;
     user-select: none;
     min-width: 500px;
@@ -337,7 +342,7 @@ document.getElementById('undoBtn').addEventListener('click', undoLatestAction);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #ffffff;
+    color: black;
     }
     .first-action {
     inline-size: min-content;
@@ -372,7 +377,7 @@ document.getElementById('undoBtn').addEventListener('click', undoLatestAction);
     }
     }
     .later-actions {
-    color: white;
+    color: black;
     height: 100%;
     padding: 10px;
     box-sizing: border-box;
@@ -380,7 +385,7 @@ document.getElementById('undoBtn').addEventListener('click', undoLatestAction);
     align-items: center;
     font-size: 20px;
     /*border: 3px solid grey;*/
-    border-radius: 8px;
+    border-radius: 4px;
     }
     </style>
   </body>

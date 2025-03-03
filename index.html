@@ -18,7 +18,7 @@
       font-family: Jetbrains;
     }
     label, p {
-      color: #FBF1C7;
+      color: black;
     }
     /* Preset Styles */
     .flex {
@@ -27,11 +27,6 @@
     .col {
       flex-direction: column;
     }
-    .underline {
-      margin-top: 12px;
-      height: 2px;
-      width: 100%;
-      background-color: #FBF1C7;
     }
     /* Normal Styling */
     .content {
@@ -41,7 +36,7 @@
       width: 100vw;
       height: 100vh;
       justify-content: center;
-      background-color: #1D2021;
+      background-color: #ffffff;
       align-items: center;
       font-family: Jetbrains;
     }
@@ -68,7 +63,7 @@
     }
     input {
       padding: 15px 21px;
-      background-color: #3C3836;
+      background-color: #ffffff;
       color: #ffffff;
       border: none;
       border-radius: 8px;
@@ -88,23 +83,7 @@
     .submit-button {
       padding: 8px 0px;
     }
-    .color-container {
-      display: flex;
-      justify-content: space-between;
-      padding: 16px 8px 0px 0px;
-    }
-    .blue_text {
-      color: #076678;
-    }
-    .red_text {
-      color: #cc241d;
-    }
-    .blue {
-      background-color: #076678;
-    }
-    .red {
-      background-color: #cc241d;
-    }
+    
     button {
       font-family: Jetbrains;
       border: none;
@@ -117,50 +96,38 @@
     </style>
   </head>
   <body>
-    <div class="flex content">
-      <div class="flex col main-content">
-        <div id="header" class="header">Team 6632 Scouting App <div class="underline"></div></div>
-        <div class="flex col sub-container">
-          <div class="flex color-container">            
-            <p>Select Color:</p> 
-            <div style="gap: 8px;" class="flex">
-              <div id="redBox" class="box bg-red"></div>
-              <div id="blueBox" class="box bg-blue"></div>
-            </div>
-          </div>
-          <form id="scoutForm" class="flex col sub-container">
-            <div class="input-container col">
-              <label>Scout id:</label>
-              <input id="scoutId" placeholder="name" type="text">
-            </div>
-            <div class="input-container col">
-              <label>Team number:</label>
-              <input id="teamNumber" type="number">
-            </div>
-            <div class="input-container col">
-              <label>Match number</label>
-              <input id="matchNumber" type="number">
-            </div>
-            <div class="input-container col">
-              <label>Team position</label>
-              <input id="teamPosition" type="number">
-            </div>
-            <button id="submitButton" class="submit-button hidden" type="submit">Continue →</button>
-          </form>
+    <header>
+      <b>Northview Robotics 6632 /</b> Information
+    </header>
+    Collecting general information
+    <form id="scoutForm" class="flex col sub-container">
+      <div class="input-container col">
+        <label>What is your name?</label>
+        <input id="scoutId" placeholder="eg. John Doe" type="text">
+      </div>
+      <div class="input-container col">
+        <label>What is the match number?</label>
+        <input id="matchNumber" placeholder="eg. 12" type="text">
+      </div>
+      <div class="input-container col">
+        <label>What is the team you are scouting?</label>
+        <input id="teamNumber" placeholder="eg. 6632" type="text">
+      </div>
+      <div class="color-question-container">
+
+        Is the robot on red or blue?
+        <div class="color-container">
+          <div id="red">Red</div>
+          <div id="blue">Blue</div>
         </div>
       </div>
-    </div>
+      <button id="submitButton" class="submit-button hidden" type="submit">Continue →</button>
+    </form>
 
     <script>
     let teamColor = "";
 
-    document.getElementById("redBox").addEventListener("click", function() {
-      teamColor = "red"
-    });
-    document.getElementById("blueBox").addEventListener("click", function() {
-      teamColor = "blue"
-    });
-
+    // Sets teamcolor and stores it to localstorage
     function setTeam(color) {
       teamColor = color;
       document.getElementById("redBox").classList.toggle("active", color === "red");
@@ -175,7 +142,7 @@
       const matchNumber = parseInt(document.getElementById("matchNumber").value, 10);
       const teamPosition = parseInt(document.getElementById("teamPosition").value, 10);
 
-      
+
       if (!scoutId ) {
         console.error("Scout ID is missing");
         return;
