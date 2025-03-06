@@ -189,100 +189,111 @@ button {
       </div>
     </div>
 
-    <script>
-    let teamColor = "";
-    let teamPosition= "";
+<script>
+let teamColor = "";
+let teamPosition = "";
 
-    // Sets teamcolor and stores it to localstorage
-    function setTeam(color) {
-      teamColor = color;
-      document.getElementById("red").classList.toggle("active", color === "red");
-      document.getElementById("blue").classList.toggle("active", color === "blue");
-    }
-    document.getElementById("human").addEventListener("click",()=> setPosition("human"))
-    document.getElementById("middle").addEventListener("click",()=> setPosition("middle"))
-    document.getElementById("opposite").addEventListener("click",()=> setPosition("opposite"))
+// Sets team color and stores it in localStorage
+function setTeam(color) {
+  teamColor = color;
+  document.getElementById("red").classList.toggle("active", color === "red");
+  document.getElementById("blue").classList.toggle("active", color === "blue");
+}
 
-    function setPosition(position) {
-      teamPosition = position;
-      // Clear existing active classes for positions
-      document.getElementById("human").classList.remove("active");
-      document.getElementById("middle").classList.remove("active");
-      document.getElementById("opposite").classList.remove("active");
+document.getElementById("human").addEventListener("click", () => setPosition("human"));
+document.getElementById("middle").addEventListener("click", () => setPosition("middle"));
+document.getElementById("opposite").addEventListener("click", () => setPosition("opposite"));
 
-      // Set the active class based on the selected position
-      switch (position) {
-        case "human":
-          document.getElementById("human").classList.add("active");
-          break;
-        case "middle":
-          document.getElementById("middle").classList.add("active");
-          break;
-        case "opposite":
-          document.getElementById("opposite").classList.add("active");
-          break;
-        default:
-          console.error("Unknown position:", position);
-      }
-    }
+function setPosition(position) {
+  teamPosition = position;
+  // Clear existing active classes for positions
+  document.getElementById("human").classList.remove("active");
+  document.getElementById("middle").classList.remove("active");
+  document.getElementById("opposite").classList.remove("active");
 
-    document.getElementById("red").addEventListener("click",()=> setTeam("red"))
-    document.getElementById("blue").addEventListener("click",()=> setTeam("blue"))
-    document.getElementById("scoutForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      const scoutId = document.getElementById("scoutId").value.trim();
-      const teamNumber = parseInt(document.getElementById("teamNumber").value, 10);
-      const matchNumber = parseInt(document.getElementById("matchNumber").value, 10);
+  // Set the active class based on the selected position
+  switch (position) {
+    case "human":
+      document.getElementById("human").classList.add("active");
+      break;
+    case "middle":
+      document.getElementById("middle").classList.add("active");
+      break;
+    case "opposite":
+      document.getElementById("opposite").classList.add("active");
+      break;
+    default:
+      console.error("Unknown position:", position);
+  }
+}
 
+document.getElementById("red").addEventListener("click", () => setTeam("red"));
+document.getElementById("blue").addEventListener("click", () => setTeam("blue"));
 
-      if (!scoutId ) {
-        console.error("Scout ID is missing");
-        return;
-      }
-      if (!matchNumber) {
-        console.error("Match Number is missing");
-        return;
-      }
-      if (!teamPosition) {
-        console.error("Team Position is missing");
-        return;
-      }
-      if (teamNumber == "") {
-        console.error("Team Number is missing is missing");
-        return;
-      }
-      if (!teamColor) {
-        console.error("Team Color is missing");
-        return;
-      }
-      if (teamNumber <= 0) {
-        console.error("Team number is invalid");
-        return;
-      }
-      if (matchNumber <= 0) {
-        console.error("Match number is invalid");
-        return;
-      }
+document.getElementById("scoutForm").addEventListener("submit", function(event) {
+  event.preventDefault();
 
-      console.log("All verified");
-      console.log("Scout ID:", scoutId);
-      console.log("Team Number:", teamNumber);
-      console.log("Match Number:", matchNumber);
-      console.log("Team Position:", teamPosition);
-      console.log("Team Color:", teamColor);
+  const scoutId = document.getElementById("scoutId").value.trim();
+  const teamNumber = parseInt(document.getElementById("teamNumber").value, 10);
+  const matchNumber = parseInt(document.getElementById("matchNumber").value, 10);
 
+  if (!scoutId) {
+    console.error("Scout ID is missing");
+    return;
+  }
+  if (!matchNumber) {
+    console.error("Match Number is missing");
+    return;
+  }
+  if (!teamPosition) {
+    console.error("Team Position is missing");
+    return;
+  }
+  if (teamNumber == "") {
+    console.error("Team Number is missing");
+    return;
+  }
+  if (!teamColor) {
+    console.error("Team Color is missing");
+    return;
+  }
+  if (teamNumber <= 0) {
+    console.error("Team number is invalid");
+    return;
+  }
+  if (matchNumber <= 0) {
+    console.error("Match number is invalid");
+    return;
+  }
 
+  console.log("All verified");
+  console.log("Scout ID:", scoutId);
+  console.log("Team Number:", teamNumber);
+  console.log("Match Number:", matchNumber);
+  console.log("Team Position:", teamPosition);
+  console.log("Team Color:", teamColor);
 
-      localStorage.setItem("scoutId", scoutId)           
-      localStorage.setItem("teamNumber", teamNumber);
-      localStorage.setItem("matchNumber", matchNumber);
-      localStorage.setItem("teamPosition", teamPosition);
-      localStorage.setItem("teamColor", teamColor);
-      setTimeout(() => {
-        window.location.href = "match.html";
-        console.log("Navigation successful");
-      }, 0);
-    });
-    </script>
+  // Get the current games data from localStorage, or initialize if it doesn't exist
+  let gamesData = JSON.parse(localStorage.getItem("gamesData")) || {};
+
+  // Add the current game data to the gamesData object
+  gamesData[matchNumber] = {
+    scoutId: scoutId,
+    teamNumber: teamNumber,
+    teamPosition: teamPosition,
+    teamColor: teamColor
+  };
+
+  // Store the updated games data in localStorage
+  localStorage.setItem("gamesData", JSON.stringify(gamesData));
+
+  setTimeout(() => {
+    window.location.href = "match.html";
+    console.log("Navigation successful");
+  }, 0);
+});
+</script>
+  </body>
+</html>
   </body>
 </html>

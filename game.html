@@ -1,0 +1,109 @@
+<html>
+  <head>
+    <title>Game Details</title>
+  </head>
+  <body>
+    <div class="content-container">
+      <div class="content">
+        <div class="top-content">
+          <div class="header">Game Details</div>
+          <button onclick="goBack()">Back to Dashboard</button>
+        </div>
+        <div id="game-details" class="game-details"></div>
+      </div>
+    </div>
+
+    <script>
+      function goBack() {
+        window.location.href = "dashboard.html";
+      }
+
+function loadGameDetails() {
+  let params = new URLSearchParams(window.location.search);
+  let matchNumber = params.get("match");
+
+  if (matchNumber === null) {
+    console.error("No match number provided in the URL.");
+    document.getElementById("game-details").innerHTML = "<p>Match number not provided.</p>";
+    return;
+  }
+
+  let gamesData = JSON.parse(localStorage.getItem("gamesData")) || {};
+
+  // Convert matchNumber to string since localStorage stores keys as strings
+  matchNumber = matchNumber.toString();
+
+  if (!gamesData[matchNumber] || !gamesData[`${matchNumber}_teamColor`]) {
+    console.error(`Match ${matchNumber} not found in localStorage.`);
+    document.getElementById("game-details").innerHTML = "<p>Game not found.</p>";
+    return;
+  }
+
+  let gameStats = gamesData[matchNumber];
+  let teamColorData = gamesData[`${matchNumber}_teamColor`];
+
+  let details = document.getElementById("game-details");
+  details.innerHTML = `
+    <h3>Match ${matchNumber}</h3>
+    <p><strong>Scout:</strong> ${gameStats.scoutId}</p>
+    <p><strong>Team Number:</strong> ${gameStats.teamNumber}</p>
+    <p><strong>Position:</strong> ${gameStats.teamPosition || "N/A"}</p>
+    <p><strong>Team Color:</strong> ${teamColorData.teamColor || "N/A"}</p>
+    <h4>Stats</h4>
+    <p>Missed Goals: ${gameStats.num_missed_goals ?? "N/A"}</p>
+    <p>Human Goals: ${gameStats.num_human_goals ?? "N/A"}</p>
+    <p>Net Goals: ${gameStats.num_net_goals ?? "N/A"}</p>
+    <p>Processor Goals: ${gameStats.num_processor_goals ?? "N/A"}</p>
+    <p>L1: ${gameStats.num_l1 ?? "N/A"}</p>
+    <p>L2: ${gameStats.num_l2 ?? "N/A"}</p>
+    <p>L3: ${gameStats.num_l3 ?? "N/A"}</p>
+    <p>L4: ${gameStats.num_l4 ?? "N/A"}</p>
+    <p>Climb Level: ${gameStats.climbLevel ?? "N/A"}</p>
+    <p>Penalty: ${gameStats.penalty ?? "N/A"}</p>
+  `;
+}
+
+      window.onload = loadGameDetails;
+    </script>
+
+    <style>
+      @font-face {
+        font-family: "Jetbrains";
+        src: url(./fonts/JETBRAINSMONONL-MEDIUM.TTF);
+      }
+      .content-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Jetbrains;
+      }
+      .content {
+        width: 80%;
+      }
+      .top-content {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .header {
+        font-size: 32px;
+      }
+      button {
+        padding: 16px 32px;
+        background-color: #2B40F5;
+        color: white;
+        font-family: Jetbrains;
+        cursor: pointer;
+      }
+      .game-details {
+        margin-top: 20px;
+      }
+    </style>
+  </body>
+</html>
