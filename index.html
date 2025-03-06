@@ -280,17 +280,22 @@ document.getElementById("scoutForm").addEventListener("submit", function(event) 
   gamesData[matchNumber] = {
     scoutId: scoutId,
     teamNumber: teamNumber,
+    matchNumber: matchNumber,
     teamPosition: teamPosition,
     teamColor: teamColor
   };
 
   // Store the updated games data in localStorage
   localStorage.setItem("gamesData", JSON.stringify(gamesData));
+  let gameData= JSON.parse(localStorage.getItem("gamesData")) || {};
+  let game = gameData[matchNumber];
 
-  setTimeout(() => {
-    window.location.href = "match.html";
-    console.log("Navigation successful");
-  }, 0);
+  if (game) {
+    let encodedData = encodeURIComponent(JSON.stringify(game));
+    setTimeout(() => {
+      window.location.href = `match.html?data=${encodedData}`;
+    }, 0);
+  }
 });
 </script>
   </body>

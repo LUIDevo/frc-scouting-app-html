@@ -103,6 +103,7 @@ body {
   gap: 15px;
 }
 .card {
+  transition: background-color 0.3s ease-in-out;
   padding: 8px 24px;
   display: flex;
   border-bottom: 4px;
@@ -211,7 +212,7 @@ button {
       <div class="position-question-container">
         <label for="position-selection">Which side is the robot closest to?</label>
         <div class="position-container" role="group" aria-labelledby="position-selection">
-          <button type="button" class="box" id="human" role="button" aria-pressed="false">Processor</button>
+          <button type="button" class="box" id="human" role="button" aria-pressed="false">Human</button>
           <button type="button" class="box" id="middle" role="button" aria-pressed="false">Middle</button>
           <button type="button" class="box" id="opposite" role="button" aria-pressed="false">Opposite</button>
         </div>
@@ -292,6 +293,53 @@ button {
 </div>
   </div>
 <script>
+
+document.getElementById("red").addEventListener("click", () => setTeam("red"));
+document.getElementById("blue").addEventListener("click", () => setTeam("blue"));
+
+document.getElementById("penalty-no").addEventListener("click", () => setPenalty("no"));
+document.getElementById("penalty-yes").addEventListener("click", () => setPenalty("yes"));
+
+document.getElementById("high").addEventListener("click", () => setClimbLevel("high"));
+document.getElementById("low").addEventListener("click", () => setClimbLevel("low"));
+
+document.getElementById("human").addEventListener("click", () => setPosition("human"));
+document.getElementById("middle").addEventListener("click", () => setPosition("middle"));
+document.getElementById("opposite").addEventListener("click", () => setPosition("opposite"));
+
+const setPosition = (position) => {
+  // Ensure position is valid, otherwise set to a default (e.g., 'human')
+  const validPositions = ["human", "middle", "opposite"];
+  if (!validPositions.includes(position)) {
+    position = "human";  // Default position
+  }
+  
+  // Update position value globally or store it in a local variable
+  currentPosition = position;
+
+  // Update UI or perform actions based on the position
+  document.getElementById("human").classList.toggle("active", position === "human");
+  document.getElementById("middle").classList.toggle("active", position === "middle");
+  document.getElementById("opposite").classList.toggle("active", position === "opposite");
+}
+
+function setClimbLevel(climbLevel) {
+  isClimbLevel = climbLevel;
+  document.getElementById("high").classList.toggle("active", climbLevel=== "high");
+  document.getElementById("low").classList.toggle("active", climbLevel=== "low");
+}
+function setPenalty(penalty) {
+  isPenalty= penalty;
+  document.getElementById("penalty-no").classList.toggle("active", penalty=== "no");
+  document.getElementById("penalty-yes").classList.toggle("active", penalty=== "yes");
+}
+function setTeam(color) {
+  teamColor = color;
+  document.getElementById("red").classList.toggle("active", color === "red");
+  document.getElementById("blue").classList.toggle("active", color === "blue");
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const values = {
     scoutId: "",
@@ -312,23 +360,36 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Load game data from localStorage and populate values
-  const gameData = JSON.parse(localStorage.getItem("gamesData")) || {};
-  console.log("Loaded gamesData:", gameData);
+// Get URL parameters
+const params = new URLSearchParams(window.location.search);
+  console.log("Loaded params:", params.toString());
 
-  const currentGame = gameData["12"] || {}; // Assuming game ID "12"
-  console.log("Current game data:", currentGame);
+  // Parse the 'data' parameter if it exists (it's a JSON-encoded string)
+  const dataParam = params.get('data');
+  if (dataParam) {
+    try {
+      const parsedData = JSON.parse(decodeURIComponent(dataParam));
+      console.log("Parsed data:", parsedData);
 
-  // Populate values from gameData or localStorage
-  Object.keys(values).forEach((key) => {
-    if (key in currentGame) {
-      values[key] = currentGame[key];
-    } else {
-      const storedValue = localStorage.getItem(key);
-      values[key] = storedValue !== null ? (isNaN(storedValue) ? storedValue : parseInt(storedValue)) : values[key];
+      // Populate values from the parsed 'data' object
+      Object.keys(parsedData).forEach((key) => {
+        values[key] = parsedData[key];
+      });
+    } catch (e) {
+      console.error("Error parsing 'data' parameter:", e);
+    }
+  }
+
+  // Populate values from the other numeric parameters
+  params.forEach((value, key) => {
+    if (key !== 'data' && value.trim() !== "") {
+      if (!isNaN(value)) {
+        values[key] = parseFloat(value); // Converts to number (float or int)
+      } else {
+        values[key] = value; // Keeps as string
+      }
     }
   });
-
-  console.log("Final values object:", values);
 
   // Ensure elements exist before accessing them
   if (document.getElementById("scoutId")) document.getElementById("scoutId").value = values.scoutId;

@@ -98,18 +98,31 @@ const validate = () => {
   console.log("num_l3", num_l3);          
   console.log("num_l4", num_l4);
 
-  localStorage.setItem("num_human_goals", num_human_goals);
-  localStorage.setItem("num_processor_goals", num_processor_goals);
-  localStorage.setItem("num_net_goals", num_net_goals);
-  localStorage.setItem("num_missed_goals", num_missed_goals);
-  localStorage.setItem("num_l1", num_l1);
-  localStorage.setItem("num_l2", num_l2);
-  localStorage.setItem("num_l3", num_l3);          
-  localStorage.setItem("num_l4", num_l4);
+  let params = new URLSearchParams(window.location.search);
+
+  // Preserve existing parameters
+  let currentParams = Object.fromEntries(params.entries());
+
+  // Add new parameters
+  let newParams = {
+    num_human_goals,
+    num_processor_goals,
+    num_net_goals,
+    num_missed_goals,
+    num_l1,
+    num_l2,
+    num_l3,
+    num_l4
+  };
+
+  // Merge old and new parameters
+  let updatedParams = new URLSearchParams({ ...currentParams, ...newParams });
+
+  // Update the URL (Change match.html to your target page)
 
 
   setTimeout(() => {
-    window.location.href = 'overview.html'; // Redirects to /match
+  window.location.href = `overview.html?${updatedParams.toString()}`;
   }, 0);
 } 
 document.getElementById('continue').addEventListener('click', validate);
