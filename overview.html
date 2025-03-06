@@ -2,230 +2,425 @@
   <head>
     <title>Overview</title>
     <style>
-      @font-face {
-        font-family: "Jetbrains";
-        src: url(./fonts/JETBRAINSMONONL-MEDIUM.TTF);
-      }
-      .flex {
-        display: flex;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        font-family: Jetbrains, sans-serif;
-        background-color: #1D2021;
-        color: #FBF1C7;
-      }
-      .content {
-        display: flex;
-        justify-content: space-between;
-        padding: 20px;
-      }
-      .left {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        width: 40%;
-      }
-      .right {
-        width: 55%;
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        gap: 15px;
-      }
-      .card {
-        padding: 8px 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color:#282828 ;
-      }
-      .card-container-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .card-container {
-        display: flex;
-        gap: 8px;
-      }
-      .header {
-        font-size: 44px;
-        text-align: center;
-        margin-bottom: 10px;
-      }
-      .underline {
-        height: 2px;
-        background-color: #FBF1C7;
-        width: 100%;
-      }
-      .counter-container {
-        background: #282828;
-        padding: 15px;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 62%;
-        min-width: 150px;
-        text-align: center;
-      }
-      .counter-label {
-        font-size: 18px;
-        margin-bottom: 5px;
-      }
-      .counter-value {
-        font-size: 22px;
-        font-weight: bold;
-        margin: 5px 0;
-      }
-      .button-container {
-        display: flex;
-        gap: 10px;
-      }
-      button {
-        background: #504945;
-        color: #FBF1C7;
-        border: none;
-        padding: 8px 12px;
-        font-size: 18px;
-        cursor: pointer;
-        border-radius: 5px;
-      }
-      button:hover {
-        background: #665C54;
-      }
-    </style>
+.position-question-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+[role="button"] {
+  all: unset;   padding: 0;
+  background: none;
+  border: none;
+  text-align: inherit;
+  cursor: inherit;
+}
+#human, #middle, #opposite {
+  border: 1px solid #818181;
+}
+#human.active, #middle.active, #opposite.active {
+  border: 1px solid #0367FB;
+  background-color: #CAD5F0;
+}
+
+.position-container {
+  margin-top: 2px;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 16px;
+}
+.box {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  width:50%;
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid #B1B1B1;
+}
+.submit-button {
+  font-family: Jetbrains;
+  width: 60%;
+  border-radius: 4px;
+  background-color: #CAD5F0;
+  color: black;
+  padding: 12px 0px;
+}
+@font-face {
+  font-family: "Jetbrains";
+  src: url(./fonts/JETBRAINSMONONL-MEDIUM.TTF);
+}
+.flex {
+  display: flex;
+}
+* {
+  box-sizing: border-box;
+}
+span {
+  color: black;
+}
+
+.sub-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+input {
+  font-family: Jetbrains;
+  border: 1px solid #818181;
+  border-radius: 4px;
+  padding: 12px 24px;
+}
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+body {
+  margin: 0;
+  font-family: Jetbrains, sans-serif;
+  background-color: white;
+}
+.content {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 40%;
+}
+.right {
+  width: 55%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.card {
+  padding: 8px 24px;
+  display: flex;
+  border-bottom: 4px;
+  border-radius: 4px;
+  align-items: center;
+  width: 50%;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid #B1B1B1;
+}
+.card-container-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+.card-container {
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  display: flex;
+  gap: 16px;
+}
+.header {
+  font-size: 44px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.underline {
+  height: 2px;
+  background-color: black;
+  width: 100%;
+}
+.counter {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+}
+.counter-container {
+  background: #ffff;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 62%;
+  min-width: 150px;
+  text-align: center;
+}
+.counter-label {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+.counter-value {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+.button-container {
+  display: flex;
+  gap: 10px;
+}
+button {
+  background: #CAD5F0;
+  color: black;
+  border: none;
+  padding: 8px 12px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.card.active {
+  border: 1px solid #0367FB;
+  background-color: #CAD5F0;
+}
+</style>
   </head>
-  <body>
-    <div class="content">
-      <div class="left">
-        <div class="header">Team 6632 Scouting App</div>
-        <div class="underline"></div>
-        <div class="card-container-container">
-          Climb level:
-          <div class="card-container">
-            <div class="card">Low</div>
-            <div class="card">High</div>
-          </div>
+<body>
+  <div class="content">
+    <div class="left">
+      <div><b>Northview Robotics 6632 /</b> <span>Post-Game</span></div>
+      <div class="underline"></div>
+      <div class="card-container-container">
+        Climb level:
+        <div class="card-container">
+          <div class="card" id="low">Low</div>
+          <div class="card" id="high">High</div>
         </div>
-        <div class="card-container-container">
-          Penalty:
-          <div class="card-container">
-            <div class="card">No</div>
-            <div class="card">Yes</div>
-          </div>
+      </div>
+      <div class="card-container-container">
+        Penalty:
+        <div class="card-container">
+          <div class="card" id="penalty-no">No</div>
+          <div class="card" id="penalty-yes">Yes</div>
+        </div>
+      </div>
+      <div class="card-container-container">
+        <div>Team Color:</div>
+        <div class="card-container">
+          <div class="card" id="red">Red</div>
+          <div class="card" id="blue">Blue</div>
+        </div>
+      </div>
+      <div class="position-question-container">
+        <label for="position-selection">Which side is the robot closest to?</label>
+        <div class="position-container" role="group" aria-labelledby="position-selection">
+          <button type="button" class="box" id="human" role="button" aria-pressed="false">Processor</button>
+          <button type="button" class="box" id="middle" role="button" aria-pressed="false">Middle</button>
+          <button type="button" class="box" id="opposite" role="button" aria-pressed="false">Opposite</button>
+        </div>
+      </div>
+      <form id="scoutForm" class="flex col sub-container">
+        <div class="input-container col">
+          <label>Scout name:</label>
+          <input id="scoutId"  type="text">
         </div>
         <div class="input-container col">
-          <label>Scout name</label>
-          <input id="scoutName" type="number">
-        </div>
-        <div class="input-container col">
-          <label>Team position</label>
-          <input id="teamPosition" type="number">
-        </div>
-        <div class="input-container col">
-          <label>Match Number</label>
+          <label>Match Number:</label>
           <input id="matchNumber" type="number">
         </div>
         <div class="input-container col">
-          <label>Team Name</label>
+          <label>Team Name:</label>
           <input id="teamName" type="number">
         </div>
-      </div>
-      <div class="right">
-        <div id="missed-goals" class="counter-container"></div>
-        <div id="human-goals" class="counter-container"></div>
-        <div id="net-goals" class="counter-container"></div>
-        <div id="processor-goals" class="counter-container"></div>
-        <div id="L1" class="counter-container"></div>
-        <div id="L2" class="counter-container"></div>
-        <div id="L3" class="counter-container"></div>
-        <div id="L4" class="counter-container"></div>
-      </div>
+      </form>
     </div>
+    <div class="right">
+      <div id="missed-goals" class="counter-container"></div>
+      <div id="human-goals" class="counter-container"></div>
+      <div id="net-goals" class="counter-container"></div>
+      <div id="processor-goals" class="counter-container"></div>
+      <div id="L1" class="counter-container"></div>
+      <div id="L2" class="counter-container"></div>
+      <div id="L3" class="counter-container"></div>
+      <div id="L4" class="counter-container"></div>
 
-    <script>
-      const values = {
-        num_human_goals: 0,
-        num_processor_goals: 0,
-        num_missed_goals: 0,
-        num_net_goals: 0,
-        num_l1: 0,
-        num_l2: 0,
-        num_l3: 0,
-        num_l4: 0
-      };
+      <button id="submitButton" class="submit-button " type="button">Continue →</button>
+    </div>
+  </div>
 
-      // Load values from localStorage
-      Object.keys(values).forEach((key) => {
-        values[key] = parseInt(localStorage.getItem(key)) || 0;
+<script>
+  const values = {
+    scoutId: "",
+    teamNumber: 0,
+    matchNumber: 0,
+    teamPosition: "",
+    teamColor: "",
+    num_human_goals: 0,
+    num_processor_goals: 0,
+    num_missed_goals: 0,
+    num_net_goals: 0,
+    num_l1: 0,
+    num_l2: 0,
+    num_l3: 0,
+    num_l4: 0,
+    climbLevel: "", // Add climbLevel here
+    penalty: "" // Add penalty here
+  };
+
+  // Load values from localStorage
+  Object.keys(values).forEach((key) => {
+    const storedValue = localStorage.getItem(key);
+    values[key] = (storedValue !== null) ? (isNaN(storedValue) ? storedValue : parseInt(storedValue)) : values[key];
+  });
+  document.getElementById("scoutId").value = values.scoutId;
+  document.getElementById("matchNumber").value = values.matchNumber;
+  document.getElementById("teamName").value = values.teamNumber;
+
+  const updateUI = () => {
+    document.getElementById("missed-goals").innerHTML = createCounter("num_missed_goals", values.num_missed_goals, "Missed Goals");
+    document.getElementById("human-goals").innerHTML = createCounter("num_human_goals", values.num_human_goals, "Human Goals");
+    document.getElementById("net-goals").innerHTML = createCounter("num_net_goals", values.num_net_goals, "Net Goals");
+    document.getElementById("processor-goals").innerHTML = createCounter("num_processor_goals", values.num_processor_goals, "Processor Goals");
+    document.getElementById("L1").innerHTML = createCounter("num_l1", values.num_l1, "L1");
+    document.getElementById("L2").innerHTML = createCounter("num_l2", values.num_l2, "L2");
+    document.getElementById("L3").innerHTML = createCounter("num_l3", values.num_l3, "L3");
+    document.getElementById("L4").innerHTML = createCounter("num_l4", values.num_l4, "L4");
+
+
+    // Reset all team position buttons to be inactive
+    document.getElementById("human").classList.remove("active");
+    document.getElementById("middle").classList.remove("active");
+    document.getElementById("opposite").classList.remove("active");
+
+    //! BUG Problem is that it doesnt let you change value
+    // Set the active button based on the stored teamPosition value
+    if (values.teamPosition === "human") {
+      document.getElementById("human").classList.add("active");
+    } else if (values.teamPosition === "middle") {
+      document.getElementById("middle").classList.add("active");
+    } else if (values.teamPosition === "opposite") {
+      document.getElementById("opposite").classList.add("active");
+    }
+
+    // Handle active state for Climb Level and Penalty
+    if (values.climbLevel) {
+      document.getElementById(values.climbLevel.toLowerCase()).classList.add("active");
+    }
+    if (values.penalty) {
+      document.getElementById(`penalty-${values.penalty.toLowerCase()}`).classList.add("active");
+    }
+    
+    attachEventListeners();
+  };
+
+  const createCounter = (key, value, label) => {
+    return `
+      <div class="counter">
+        <label>${label}</label>
+        <div>
+          <button data-key="${key}" data-action="decrement">-</button>
+          <span>${value}</span>
+          <button data-key="${key}" data-action="increment">+</button>
+        </div>
+      </div>
+    `;
+  };
+
+  const attachEventListeners = () => {
+    document.querySelectorAll("button").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const key = event.target.getAttribute("data-key");
+        const action = event.target.getAttribute("data-action");
+
+        if (action === "increment") values[key]++;
+        if (action === "decrement") values[key]--;
+
+        localStorage.setItem(key, values[key]);
+        updateUI();
       });
+    });
 
-      // Labels for each counter
-      const labels = {
-        num_missed_goals: "Missed Goals",
-        num_human_goals: "Human Goals",
-        num_net_goals: "Net Goals",
-        num_processor_goals: "Processor Goals",
-        num_l1: "L1 Score",
-        num_l2: "L2 Score",
-        num_l3: "L3 Score",
-        num_l4: "L4 Score"
-      };
+    // Handle card clicks to toggle 'active' class
+    const cards = document.querySelectorAll(".card-container .card");
 
-      // Update UI
-const updateUI = () => {
-  document.getElementById("missed-goals").innerHTML = createCounter("num_missed_goals", values.num_missed_goals, "Missed Goals");
-  document.getElementById("human-goals").innerHTML = createCounter("num_human_goals", values.num_human_goals, "Human Goals");
-  document.getElementById("net-goals").innerHTML = createCounter("num_net_goals", values.num_net_goals, "Net Goals");
-  document.getElementById("processor-goals").innerHTML = createCounter("num_processor_goals", values.num_processor_goals, "Processor Goals");
-  document.getElementById("L1").innerHTML = createCounter("num_l1", values.num_l1, "L1");
-  document.getElementById("L2").innerHTML = createCounter("num_l2", values.num_l2, "L2");
-  document.getElementById("L3").innerHTML = createCounter("num_l3", values.num_l3, "L3");
-  document.getElementById("L4").innerHTML = createCounter("num_l4", values.num_l4, "L4");
+    cards.forEach(card => {
+      card.addEventListener("click", () => {
+        const container = card.parentElement;
 
-  // Reattach event listeners
-  attachEventListeners();
-};
-
-      // Create HTML structure for a counter
-const createCounter = (key, value, label) => {
-  return `
-    <div class="counter">
-      <label>${label}</label>
-      <div>
-        <button data-key="${key}" data-action="decrement">-</button>
-        <span>${value}</span>
-        <button data-key="${key}" data-action="increment">+</button>
-      </div>
-    </div>
-  `;
-};
-
-      // Attach event listeners to buttons
-      const attachEventListeners = () => {
-        document.querySelectorAll("button").forEach((button) => {
-          button.addEventListener("click", (event) => {
-            const key = event.target.getAttribute("data-key");
-            const action = event.target.getAttribute("data-action");
-
-            if (action === "increment") values[key]++;
-            if (action === "decrement") values[key]--;
-
-            localStorage.setItem(key, values[key]);
-            updateUI();
-          });
+        container.querySelectorAll(".card").forEach(siblingCard => {
+          siblingCard.classList.remove("active");
         });
-      };
 
-      // Initialize UI
-      updateUI();
-    </script>
-  </body>
-</html>
+        card.classList.add("active");
+
+        if (container.previousElementSibling.textContent.includes("Climb level")) {
+          values.climbLevel = card.textContent.trim();
+          localStorage.setItem("climbLevel", values.climbLevel);
+        } else if (container.previousElementSibling.textContent.includes("Penalty")) {
+          values.penalty = card.textContent.trim();
+          localStorage.setItem("penalty", values.penalty);
+        } else if (container.previousElementSibling.textContent.includes("Team Color")) {
+          values.teamColor = card.textContent.trim().toLowerCase();
+          localStorage.setItem("teamColor", values.teamColor);
+        }
+      });
+    });
+  };
+
+  document.getElementById("submitButton").addEventListener("click", () => {
+    if (!values.teamNumber) {
+      alert("Please enter the team name.");
+      return;
+    }
+    if (!values.scoutId) {
+      alert("Please enter the scout ID.");
+      return;
+    }
+    if (!values.matchNumber) {
+      alert("Please enter the match number.");
+      return;
+    }
+    //! BUG NEED TO ADD PENALTY INPUT 
+    //if (!values.penalty) {
+    //  alert("Please add penalty input");
+    //  return;
+    //}
+    //if (!values.climbLevel) {
+    //  alert("Please add climb level input");
+    //  return;
+    //}
+  // Manually update each field in localStorage
+  localStorage.setItem("teamPosition", values.teamPosition);
+  localStorage.setItem("teamNumber", document.getElementById("teamName").value);
+  localStorage.setItem("scoutId", document.getElementById("scoutId").value);
+  localStorage.setItem("matchNumber", document.getElementById("matchNumber").value);
+  localStorage.setItem("penalty", values.penalty);
+  localStorage.setItem("num_processor_goals", values.num_processor_goals);
+  localStorage.setItem("num_net_goals", values.num_net_goals);
+  localStorage.setItem("num_human_goals", values.num_human_goals);
+  localStorage.setItem("num_missed_goals", values.num_missed_goals);
+  localStorage.setItem("num_l1", values.num_l1);
+  localStorage.setItem("num_l2", values.num_l2);
+  localStorage.setItem("num_l3", values.num_l3);
+  localStorage.setItem("num_l4", values.num_l4);
+
+  console.log("teamPosition", localStorage.getItem("teamPosition"));
+  console.log("teamNumber", localStorage.getItem("teamNumber"));
+  console.log("scoutId", localStorage.getItem("scoutId"));
+  console.log("matchNumber", localStorage.getItem("matchNumber"));
+  console.log("penalty", localStorage.getItem("penalty"));
+  console.log("num_processor_goals", localStorage.getItem("num_processor_goals"));
+  console.log("num_net_goals", localStorage.getItem("num_net_goals"));
+  console.log("num_human_goals", localStorage.getItem("num_human_goals"));
+  console.log("num_missed_goals", localStorage.getItem("num_missed_goals"));
+  console.log("num_l1", localStorage.getItem("num_l1"));
+  console.log("num_l2", localStorage.getItem("num_l2"));
+  console.log("num_l3", localStorage.getItem("num_l3"));
+  console.log("num_l4", localStorage.getItem("num_l4"));
+  // After storing everything in localStorage, update the UI
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+        console.log("Navigation successful");
+      }, 0);
+});
+  // Initialize UI
+  updateUI();
+</script>

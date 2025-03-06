@@ -5,142 +5,234 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team 6632 Scouting App</title>
     <style>
-    @font-face {
-      font-family: "Jetbrains";
-      src: url(./fonts/JETBRAINSMONONL-MEDIUM.TTF);
-    }
-    @font-face {
-      font-family: "Jetbrains Bold";
-      src: url(./fonts/JETBRAINSMONONL-BOLD.TTF);
-    }
-
-    input {
-      font-family: Jetbrains;
-    }
-    label, p {
-      color: black;
-    }
-    /* Preset Styles */
-    .flex {
-      display: flex;
-    }
-    .col {
-      flex-direction: column;
-    }
-    }
-    /* Normal Styling */
-    .content {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      justify-content: center;
-      background-color: #ffffff;
-      align-items: center;
-      font-family: Jetbrains;
-    }
-    .header {
-      width: 100%;
-      font-size: 44px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: #FBF1C7;
-      font-family: Jetbrains Bold;
-    }
-    .main-content {
-      width: 800px;
-    }
-    .sub-container {
-      gap: 16px;
-    }
-    .input-container {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    input {
-      padding: 15px 21px;
-      background-color: #ffffff;
-      color: #ffffff;
-      border: none;
-      border-radius: 8px;
-    }
-    .box {
-      width: 44px;
-      box-sizing: border-box;
-      height: 44px;
-      border-radius: 8px; 
-    }
-    .bg-red {
-      background-color: #cc241d;
-    }
-    .bg-blue{
-      background-color: #076678;
-    }
-    .submit-button {
-      padding: 8px 0px;
-    }
-    
-    button {
-      font-family: Jetbrains;
-      border: none;
-      color: #ffffff;
-    }
-    .active {
-      border: 1px solid #000000;
-    }
-
-    </style>
+[role="button"] {
+  all: unset;   padding: 0;
+  background: none;
+  border: none;
+  text-align: inherit;
+  cursor: inherit;
+}
+@font-face {
+  font-family: "Jetbrains";
+  src: url(./fonts/JETBRAINSMONONL-MEDIUM.TTF);
+}
+@font-face {
+  font-family: "Jetbrains Bold";
+  src: url(./fonts/JETBRAINSMONONL-BOLD.TTF);
+}
+header {
+  margin-bottom: 4px;
+}
+.underline {
+  height: 2px;
+  width: 100%;
+  background-color: black;
+  margin-bottom: 24px;
+  margin-top: 2px;
+}
+input {
+  font-family: Jetbrains;
+  border: 1px solid #818181;
+  border-radius: 4px;
+  padding: 12px 24px;
+}
+label, p {
+  color: black;
+}
+/* Preset Styles */
+.flex {
+  display: flex;
+}
+.col {
+  flex-direction: column;
+}
+.subheader {
+  font-weight: bold;
+  letter-spacing: -0.3px;
+  font-size: 20px;
+}
+.color-container {
+  display: flex;
+}
+/* Normal Styling */
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  background-color: #ffffff;
+  align-items: center;
+  font-family: Jetbrains;
+}
+.header {
+  width: 100%;
+  font-size: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #FBF1C7;
+  font-family: Jetbrains Bold;
+}
+.main-content {
+  width: 600px;
+}
+.sub-container {
+  gap: 24px;
+}
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.color-question-container {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.color-container {
+  gap: 16px;
+}
+.position-container {
+  margin-top: 2px;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 16px;
+}
+.box {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  width:50%;
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+}
+#red {
+  background-color: #F9E7EA;
+  color:#3E2525;
+}
+#red:hover, #red.active {
+  background-color: #d20f39;
+  color:#F9E7EA;
+}
+#blue{
+  background-color: #C3D8EB;
+  color: #25253E;
+}
+#blue:hover, #blue.active{
+  background-color: #1e66f5;
+  color: #C3D8EB;
+}
+#human, #middle, #opposite {
+  border: 1px solid #818181;
+}
+#human.active, #middle.active, #opposite.active {
+  border: 1px solid #0367FB;
+  background-color: #CAD5F0;
+}
+.submit-button {
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  padding: 12px 0px;
+}
+button {
+  cursor: pointer;
+  font-family: Jetbrains;
+}
+</style>
   </head>
   <body>
-    <header>
-      <b>Northview Robotics 6632 /</b> Information
-    </header>
-    Collecting general information
-    <form id="scoutForm" class="flex col sub-container">
-      <div class="input-container col">
-        <label>What is your name?</label>
-        <input id="scoutId" placeholder="eg. John Doe" type="text">
-      </div>
-      <div class="input-container col">
-        <label>What is the match number?</label>
-        <input id="matchNumber" placeholder="eg. 12" type="text">
-      </div>
-      <div class="input-container col">
-        <label>What is the team you are scouting?</label>
-        <input id="teamNumber" placeholder="eg. 6632" type="text">
-      </div>
-      <div class="color-question-container">
+    <div class="content flex col">
+      <div class="main-content flex col">
+        <header>
+          <b>Northview Robotics 6632 /</b> Information
+        </header>
+        <div class="subheader"> Collecting general information</div>
+        <div class="underline"></div>
+        <form id="scoutForm" class="flex col sub-container">
+          <div class="input-container col">
+            <label>What is your name?</label>
+            <input id="scoutId" placeholder="eg. John Doe" type="text">
+          </div>
+          <div class="input-container col">
+            <label>What is the match number?</label>
+            <input id="matchNumber" placeholder="eg. 12" type="text">
+          </div>
+          <div class="input-container col">
+            <label>What is the team you are scouting?</label>
+            <input id="teamNumber" placeholder="eg. 6632" type="text">
+          </div>
+          <div class="color-question-container">
+            <label for="color-selection">Is the robot on red or blue?</label>
+            <div class="color-container" role="group" aria-labelledby="color-selection">
+              <button class="box" type="button" id="red" role="button" aria-pressed="false">Red</button>
+              <button class="box" type="button" id="blue" role="button" aria-pressed="false">Blue</button>
+            </div>
+          </div>
 
-        Is the robot on red or blue?
-        <div class="color-container">
-          <div id="red">Red</div>
-          <div id="blue">Blue</div>
-        </div>
+          <div class="color-question-container">
+            <label for="position-selection">Which side is the robot closest to?</label>
+            <div class="position-container" role="group" aria-labelledby="position-selection">
+              <button type="button" class="box" id="human" role="button" aria-pressed="false">Processor</button>
+              <button type="button" class="box" id="middle" role="button" aria-pressed="false">Middle</button>
+              <button type="button" class="box" id="opposite" role="button" aria-pressed="false">Opposite</button>
+            </div>
+          </div>
+          <button id="submitButton" class="submit-button " type="submit">Continue →</button>
+        </form>
       </div>
-      <button id="submitButton" class="submit-button hidden" type="submit">Continue →</button>
-    </form>
+    </div>
 
     <script>
     let teamColor = "";
+    let teamPosition= "";
 
     // Sets teamcolor and stores it to localstorage
     function setTeam(color) {
       teamColor = color;
-      document.getElementById("redBox").classList.toggle("active", color === "red");
-      document.getElementById("blueBox").classList.toggle("active", color === "blue");
-      document.getElementById("submitButton").classList.remove("hidden");
+      document.getElementById("red").classList.toggle("active", color === "red");
+      document.getElementById("blue").classList.toggle("active", color === "blue");
+    }
+    document.getElementById("human").addEventListener("click",()=> setPosition("human"))
+    document.getElementById("middle").addEventListener("click",()=> setPosition("middle"))
+    document.getElementById("opposite").addEventListener("click",()=> setPosition("opposite"))
+
+    function setPosition(position) {
+      teamPosition = position;
+      // Clear existing active classes for positions
+      document.getElementById("human").classList.remove("active");
+      document.getElementById("middle").classList.remove("active");
+      document.getElementById("opposite").classList.remove("active");
+
+      // Set the active class based on the selected position
+      switch (position) {
+        case "human":
+          document.getElementById("human").classList.add("active");
+          break;
+        case "middle":
+          document.getElementById("middle").classList.add("active");
+          break;
+        case "opposite":
+          document.getElementById("opposite").classList.add("active");
+          break;
+        default:
+          console.error("Unknown position:", position);
+      }
     }
 
+    document.getElementById("red").addEventListener("click",()=> setTeam("red"))
+    document.getElementById("blue").addEventListener("click",()=> setTeam("blue"))
     document.getElementById("scoutForm").addEventListener("submit", function(event) {
       event.preventDefault();
       const scoutId = document.getElementById("scoutId").value.trim();
       const teamNumber = parseInt(document.getElementById("teamNumber").value, 10);
       const matchNumber = parseInt(document.getElementById("matchNumber").value, 10);
-      const teamPosition = parseInt(document.getElementById("teamPosition").value, 10);
 
 
       if (!scoutId ) {
@@ -155,7 +247,7 @@
         console.error("Team Position is missing");
         return;
       }
-      if (!teamNumber) {
+      if (teamNumber == "") {
         console.error("Team Number is missing is missing");
         return;
       }
@@ -171,10 +263,6 @@
         console.error("Match number is invalid");
         return;
       }
-      if (teamPosition <= 0) {
-        console.error("Team position is invalid");
-        return;
-      }
 
       console.log("All verified");
       console.log("Scout ID:", scoutId);
@@ -186,10 +274,10 @@
 
 
       localStorage.setItem("scoutId", scoutId)           
-      localStorage.setItem("Team Number:", teamNumber);
-      localStorage.setItem("Match Number:", matchNumber);
-      localStorage.setItem("Team Position:", teamPosition);
-      localStorage.setItem("Team Color:", teamColor);
+      localStorage.setItem("teamNumber", teamNumber);
+      localStorage.setItem("matchNumber", matchNumber);
+      localStorage.setItem("teamPosition", teamPosition);
+      localStorage.setItem("teamColor", teamColor);
       setTimeout(() => {
         window.location.href = "map.html";
         console.log("Navigation successful");
