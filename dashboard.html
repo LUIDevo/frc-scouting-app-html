@@ -20,19 +20,6 @@
         }, 0);
       }
 
-      function loadGames() {
-        let gamesData = JSON.parse(localStorage.getItem("gamesData")) || {};
-        let container = document.getElementById("card-container");
-
-        if (Object.keys(gamesData).length === 0) {
-          container.innerHTML = "<p>Game info here</p>";
-          return;
-        }
-
-        Object.keys(gamesData).forEach((matchNumber) => {
-          let game = gamesData[matchNumber];
-          let card = document.createElement("div");
-          card.className = "card";
           card.innerHTML = `
             <div class="card-content">
               <h3>Match ${matchNumber}</h3>

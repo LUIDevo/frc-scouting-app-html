@@ -439,8 +439,10 @@ document.body.addEventListener("click", (event) => {
 // Handle form submission
 document.getElementById("submitButton")?.addEventListener("click", () => {
   console.log("Submitting data...");
-  matchNumber = document.getElementById('matchNumber').value;
-  comments= document.getElementById('comments').value;
+  values.matchNumber = document.getElementById('matchNumber').value;
+  values.teamNumber= document.getElementById('teamName').value;
+  values.comments= document.getElementById('comments').value;
+
   console.log(matchNumber)
   // Construct new URL parameters
   const newParams = new URLSearchParams();
@@ -452,7 +454,7 @@ document.getElementById("submitButton")?.addEventListener("click", () => {
   });
 
   // Navigate to the new URL
-  //window.location.href = `dashboard.html?${newParams.toString()}`;
+  window.location.href = `dashboard.html?${newParams.toString()}`;
 });
 
 // Initialize UI with updated values
