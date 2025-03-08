@@ -26,16 +26,16 @@
         </div>
 
         <div class="container">
-          <div onclick="clickedCard('Missed Goal')" class="card missed-goal">Missed Goal <span id="num_missed_goals">0</span></div>
+          <div onclick="clickedCard('Missed Goal')" class="card missed-goal">Missed Goal&nbsp;<span id="num_missed_goals">0</span></div>
           <div class="goal-container flex">
-            <div onclick="clickedCard('Net Goal')" class="card net">Net</div>
-            <div onclick="clickedCard('Processor Goal')" class="card processor">Processor</div>
-            <div onclick="clickedCard('Human Goal')" class="card human">Human</div>
+            <div onclick="clickedCard('Net Goal')" class="card net">Net&nbsp;<span id="num_net_goals"> 0</span></div>
+            <div onclick="clickedCard('Processor Goal')" class="card processor">Processor&nbsp;<span id="num_processor_goals"> 0</span></div>
+            <div onclick="clickedCard('Human Goal')" class="card human">Human&nbsp;<span id="num_human_goals"> 0</span></div>
           </div>
-          <div onclick="clickedCard('L4')" class="card l4">L4</div>
-          <div onclick="clickedCard('L3')" class="card l3">L3</div>
-          <div onclick="clickedCard('L2')" class="card l2">L2</div>
-          <div onclick="clickedCard('L1')" class="card l1">L1</div>
+          <div onclick="clickedCard('L4')" class="card l4">L4&nbsp;<span id="num_l4"> 0</span></div>
+          <div onclick="clickedCard('L3')" class="card l3">L3&nbsp;<span id="num_l3"> 0</span></div>
+          <div onclick="clickedCard('L2')" class="card l2">L2&nbsp;<span id="num_l2"> 0</span></div>
+          <div onclick="clickedCard('L1')" class="card l1">L1&nbsp;<span id="num_l1"> 0</span></div>
           <div id="continue" class="continue-btn">Continue →</div>
         </div>
       </div>
@@ -88,9 +88,9 @@ const clickedCard = (cardName) => {
   updateUI();
 };
 
-  let params = new URLSearchParams(window.location.search);
+let params = new URLSearchParams(window.location.search);
 
-  console.log(params.has("data"));
+console.log(params.has("data"));
 const validate = () => {
   console.log("num_human_goals", num_human_goals);
   console.log("num_processor_goals", num_processor_goals);
@@ -123,14 +123,10 @@ const validate = () => {
 
 
   setTimeout(() => {
-  window.location.href = `overview.html?${updatedParams.toString()}`;
+    window.location.href = `overview.html?${updatedParams.toString()}`;
   }, 0);
 } 
 document.getElementById('continue').addEventListener('click', validate);
-
-
-
-
 
 const undoLatestAction = () => {
   lastAction = "undo";
@@ -141,6 +137,14 @@ const undoLatestAction = () => {
 
 const updateUI = () => {
   document.getElementById('num_missed_goals').textContent = num_missed_goals;
+  document.getElementById('num_human_goals').textContent = num_human_goals;
+  document.getElementById('num_net_goals').textContent = num_net_goals;
+  document.getElementById('num_processor_goals').textContent = num_processor_goals;
+  document.getElementById('num_l1').textContent = num_l1;
+  document.getElementById('num_l2').textContent = num_l2;
+  document.getElementById('num_l3').textContent = num_l3;
+  document.getElementById('num_l4').textContent = num_l4;
+
   document.getElementById('lastAction').textContent = recentActions[0] || "";
   document.getElementById('recentActions1').textContent = recentActions[1] || "";
   document.getElementById('recentActions2').textContent = recentActions[2] || "";
@@ -271,8 +275,8 @@ document.getElementById('undoBtn').addEventListener('click', undoLatestAction);
     /* Continue button spans both columns */
     .continue-btn {
       grid-column: span 2;
-      background-color: #192DD7;
-      color: white;
+      background: #CAD5F0;
+      color: black;
       border-radius: 4px;
       margin-top: 32px;
       padding: 12px 0px;

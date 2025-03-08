@@ -28,16 +28,7 @@ function loadGameDetails() {
     return;
   }
 
-  let gamesData = JSON.parse(localStorage.getItem("gamesData")) || {};
 
-  // Convert matchNumber to string since localStorage stores keys as strings
-  matchNumber = matchNumber.toString();
-
-  if (!gamesData[matchNumber] || !gamesData[`${matchNumber}_teamColor`]) {
-    console.error(`Match ${matchNumber} not found in localStorage.`);
-    document.getElementById("game-details").innerHTML = "<p>Game not found.</p>";
-    return;
-  }
 
   let gameStats = gamesData[matchNumber];
   let teamColorData = gamesData[`${matchNumber}_teamColor`];

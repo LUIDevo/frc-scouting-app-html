@@ -79,6 +79,8 @@ label, p {
 }
 .main-content {
   width: 600px;
+  height: 100%;
+  padding-top: 32px;
 }
 .sub-container {
   gap: 8px;
@@ -143,10 +145,18 @@ label, p {
   background-color: black;
   color: white;
   padding: 12px 0px;
+  margin-bottom: 32px;
 }
 button {
   cursor: pointer;
   font-family: Jetbrains;
+}
+body, html {
+  width: 100vw;
+  background-color: #1D2021;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 </style>
   </head>
@@ -196,7 +206,6 @@ button {
 let teamColor = "";
 let teamPosition = "";
 
-// Sets team color and stores it in localStorage
 function setTeam(color) {
   teamColor = color;
   document.getElementById("red").classList.toggle("active", color === "red");
@@ -276,10 +285,9 @@ document.getElementById("scoutForm").addEventListener("submit", function(event) 
   console.log("Team Position:", teamPosition);
   console.log("Team Color:", teamColor);
 
-  // Get the current games data from localStorage, or initialize if it doesn't exist
 
   // Add the current game data to the gamesData object
-gamesData[matchNumber] = {
+let gamesData = {
   matchNumber: matchNumber,
   scoutId: scoutId,
   teamNumber: teamNumber,
@@ -288,7 +296,6 @@ gamesData[matchNumber] = {
 };
 
 
-if (game) {
   try {
     let encodedData = encodeURIComponent(JSON.stringify(gamesData));
     console.log("Encoded Data:", encodedData);
@@ -298,7 +305,6 @@ if (game) {
   } catch (error) {
     console.error("Error encoding data:", error);
   }
-}
 });
 </script>
   </body>

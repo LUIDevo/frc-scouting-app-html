@@ -141,12 +141,11 @@ body {
 .header {
   font-size: 44px;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 2%;
 }
 .underline {
   height: 2px;
   background-color: #ffff;
-  margin-bottom: 2%;
   width: 100%;
 }
 .counter {
@@ -231,10 +230,6 @@ button {
         </div>
       </div>
         <div class="input-container col">
-          <label>Scout name:</label>
-          <input id="scoutId" type="text">
-        </div>
-        <div class="input-container col">
           <label>Match Number:</label>
           <input id="matchNumber" type="number">
         </div>
@@ -244,7 +239,7 @@ button {
         </div>
         <div class="input-container col">
           <label>Additional comments (Notable events, how the robot performed in auto, any breakages, etc.)</label>
-          <input id="teamName" type="number">
+          <input id="comments" type="text">
         </div>
     </div>
 <div class="right">
@@ -326,147 +321,142 @@ button {
   <button id="submitButton" class="submit-button" type="button">Continue →</button>
     </div>
 <script>
-
 document.getElementById("penalty-no").addEventListener("click", () => setPenalty("no"));
 document.getElementById("penalty-yes").addEventListener("click", () => setPenalty("yes"));
+
+document.getElementById("no-coop").addEventListener("click", () => setCoop("no"));
+document.getElementById("yes-coop").addEventListener("click", () => setCoop("yes"));
 
 document.getElementById("high").addEventListener("click", () => setClimbLevel("high"));
 document.getElementById("low").addEventListener("click", () => setClimbLevel("low"));
 
+let values = {
+  teamNumber: 0,
+  matchNumber: 0,
+  teamPosition: "",
+  teamColor: "",
+  num_human_goals: 0,
+  num_processor_goals: 0,
+  num_missed_goals: 0,
+  num_net_goals: 0,
+  num_l1: 0,
+  num_l2: 0,
+  num_l3: 0,
+  num_l4: 0,
+  climbLevel: "",
+  penalty: "",
+  coopertition: "",
+  comments: ""
+};
+
+// Extract parameters from the URL
+const params = new URLSearchParams(window.location.search);
+console.log("Loaded params:", params.toString());
+
+const dataParam = params.get('data');
+if (dataParam) {
+  try {
+    const parsedData = JSON.parse(decodeURIComponent(dataParam));
+    console.log("Parsed data:", parsedData);
+
+    Object.keys(parsedData).forEach((key) => {
+      values[key] = parsedData[key];
+    });
+  } catch (e) {
+    console.error("Error parsing 'data' parameter:", e);
+  }
+}
+
+// Merge all URL parameters into `values`
+params.forEach((value, key) => {
+  if (key !== 'data' && value.trim() !== "") {
+    values[key] = isNaN(value) ? value : parseFloat(value);
+  }
+});
+
+// Update UI
+const updateUI = () => {
+  console.log("Updating UI...");
+  
+  // Update numeric counters
+  const counters = [
+    "num_missed_goals",
+    "num_human_goals",
+    "num_net_goals",
+    "num_processor_goals",
+    "num_l1",
+    "num_l2",
+    "num_l3",
+    "num_l4"
+  ];
+
+  counters.forEach((key) => {
+    const counterSpan = document.querySelector(`#${key} .counter-value`);
+    if (counterSpan) {
+      counterSpan.textContent = values[key];
+    } else {
+      console.warn(`Counter element for ${key} not found.`);
+    }
+  });
+
+  // Set active states for buttons
+  setPenalty(values.penalty);
+  setCoop(values.coopertition);
+  setClimbLevel(values.climbLevel);
+};
+
+function setCoop(coop) {
+  values.coopertition = coop;
+  document.getElementById("no-coop").classList.toggle("active", coop === "no");
+  document.getElementById("yes-coop").classList.toggle("active", coop === "yes");
+}
 
 function setClimbLevel(climbLevel) {
-  isClimbLevel = climbLevel;
+  values.climbLevel = climbLevel;
   document.getElementById("high").classList.toggle("active", climbLevel === "high");
   document.getElementById("low").classList.toggle("active", climbLevel === "low");
 }
 
 function setPenalty(penalty) {
-  isPenalty = penalty;
+  values.penalty = penalty;
   document.getElementById("penalty-no").classList.toggle("active", penalty === "no");
   document.getElementById("penalty-yes").classList.toggle("active", penalty === "yes");
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const values = {
-    scoutId: "",
-    teamNumber: 0,
-    matchNumber: 0,
-    teamPosition: "",
-    teamColor: "",
-    num_human_goals: 0,
-    num_processor_goals: 0,
-    num_missed_goals: 0,
-    num_net_goals: 0,
-    num_l1: 0,
-    num_l2: 0,
-    num_l3: 0,
-    num_l4: 0,
-    climbLevel: "",
-    penalty: ""
-  };
+// Handle counter buttons
+document.body.addEventListener("click", (event) => {
+  const button = event.target;
+  const key = button.getAttribute("data-key");
+  const action = button.getAttribute("data-action");
 
-  const params = new URLSearchParams(window.location.search);
-  console.log("Loaded params:", params.toString());
-
-  const dataParam = params.get('data');
-  if (dataParam) {
-    try {
-      const parsedData = JSON.parse(decodeURIComponent(dataParam));
-      console.log("Parsed data:", parsedData);
-
-      Object.keys(parsedData).forEach((key) => {
-        values[key] = parsedData[key];
-      });
-    } catch (e) {
-      console.error("Error parsing 'data' parameter:", e);
-    }
+  if (key && action) {
+    if (action === "increment") values[key]++;
+    if (action === "decrement") values[key]--;
+    updateUI();
   }
-
-  params.forEach((value, key) => {
-    if (key !== 'data' && value.trim() !== "") {
-      if (!isNaN(value)) {
-        values[key] = parseFloat(value);
-      } else {
-        values[key] = value;
-      }
-    }
-  });
-
-  if (document.getElementById("scoutId")) document.getElementById("scoutId").value = values.scoutId;
-  if (document.getElementById("matchNumber")) document.getElementById("matchNumber").value = values.matchNumber;
-  if (document.getElementById("teamName")) document.getElementById("teamName").value = values.teamNumber;
-
-  const updateUI = () => {
-    console.log("Updating UI...");
-
-    const counters = [
-      "num_missed_goals",
-      "num_human_goals",
-      "num_net_goals",
-      "num_processor_goals",
-      "num_l1",
-      "num_l2",
-      "num_l3",
-      "num_l4"
-    ];
-
-    counters.forEach((key) => {
-      const counterSpan = document.querySelector(`#${key} .counter-value`);
-      if (counterSpan) {
-        counterSpan.textContent = values[key];
-      } else {
-        console.warn(`Counter element for ${key} not found.`);
-      }
-    });
-  };
-
-  document.body.addEventListener("click", (event) => {
-    const button = event.target;
-    const key = button.getAttribute("data-key");
-    const action = button.getAttribute("data-action");
-
-    if (key && action) {
-      if (action === "increment") values[key]++;
-      if (action === "decrement") values[key]--;
-
-      updateUI();
-    }
-  });
-
-  document.getElementById("submitButton")?.addEventListener("click", () => {
-    if (!values.teamNumber) {
-      alert("Please enter the team name.");
-      return;
-    }
-    if (!values.scoutId) {
-      alert("Please enter the scout ID.");
-      return;
-    }
-
-    let gamesData = JSON.parse(localStorage.getItem("gamesData")) || {};
-
-    if (!gamesData[values.matchNumber]) {
-      gamesData[values.matchNumber] = {};
-    }
-
-    Object.keys(values).forEach((key) => {
-      if (key !== "teamColor") {
-        gamesData[values.matchNumber][key] = values[key];
-      }
-    });
-
-    localStorage.setItem("gamesData", JSON.stringify(gamesData));
-
-    console.log("Updated game data:", gamesData);
-
-    // Add form data to URL parameters for the next page
-    const params = new URLSearchParams(values);
-    window.location.href = `dashboard.html?${params.toString()}`;
-  });
-
-  updateUI();
 });
 
+// Handle form submission
+document.getElementById("submitButton")?.addEventListener("click", () => {
+  console.log("Submitting data...");
+  matchNumber = document.getElementById('matchNumber').value;
+  comments= document.getElementById('comments').value;
+  console.log(matchNumber)
+  // Construct new URL parameters
+  const newParams = new URLSearchParams();
+
+  Object.keys(values).forEach((key) => {
+    if (values[key] !== "") {
+      newParams.set(key, values[key]);
+    }
+  });
+
+  // Navigate to the new URL
+  //window.location.href = `dashboard.html?${newParams.toString()}`;
+});
+
+// Initialize UI with updated values
+updateUI();
 </script>
 </body>
 </html>
