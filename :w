@@ -8,7 +8,7 @@
         <div class="top-content">
           <div class="header">Your scouting logs</div>
           <div class="button-container">
-            <button onclick="copyToClipboard()" class="spreadsheet"><svg width="800px" height="800px" style="zoom: 0.25" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <button onclick="copyToClipboard()" class="spreadsheet"><svg width="800px" height="800px" style="zoom: 0.5" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M10 7.99542V10H8V7.99542H10Z" fill="#000000"/>
 <path d="M10 4.99738V6.99542H8V4.99738H10Z" fill="#000000"/>
 <path d="M7 4.99738H5V6.99542H7V4.99738Z" fill="#000000"/>
@@ -62,7 +62,6 @@
       notification.style.margin = "10px 0";
       notification.style.borderRadius = "5px";
       notification.style.textAlign = "center";
-        notification.style.animation= "fadeIn 0.3s forwards ease-in-out";
 
       setTimeout(() => {
         notification.style.animation= "fadeOut 0.3s forwards ease-in-out";
@@ -251,7 +250,7 @@
       background-color: #8BED8F;
       color: black;
       zoom: 0.125;
-      padding: 30px 120px;
+      padding: 60px 240px;
       border-radius: 4px;
     }
     .new-log {

@@ -2,6 +2,44 @@
   <head>
     <title>Overview</title>
     <style>
+.notifications-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
+.notification {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: fadeInOut 4s forwards;
+}
+
+.notification.error {
+  background-color: #f44336;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
 .position-question-container {
   display: flex;
   flex-direction: column;
@@ -201,6 +239,7 @@ button {
 </style>
   </head>
 <body>
+<div id="notifications-container" class="notifications-container"></div>
   <div class="content-container">
       <div class="content">
     <div class="left">
@@ -321,6 +360,19 @@ button {
   <button id="submitButton" class="submit-button" type="button">Continue →</button>
     </div>
 <script>
+function showErrorNotification(message) {
+  const notificationContainer = document.getElementById('notifications-container');
+  const notification = document.createElement('div');
+  notification.classList.add('notification', 'error');
+  notification.innerText = message;
+  notificationContainer.appendChild(notification);
+
+  // Fade out the notification after 4 seconds
+  setTimeout(() => {
+    notification.style.opacity = 0;
+    setTimeout(() => notification.remove(), 1000);
+  }, 4000);
+}
 document.getElementById("penalty-no").addEventListener("click", () => setPenalty("no"));
 document.getElementById("penalty-yes").addEventListener("click", () => setPenalty("yes"));
 
@@ -446,8 +498,12 @@ document.getElementById("submitButton")?.addEventListener("click", () => {
   values.teamNumber= document.getElementById('teamName').value;
   values.comments= document.getElementById('comments').value;
 
-  console.log(matchNumber)
-  // Construct new URL parameters
+
+ if (!values.climbLevel || !values.penalty || !values.coopertition) {
+    showErrorNotification('Please fill in all required fields (Climb Level, Penalty, and Coopertition).');
+  } else {
+
+  showNotification("Data submitted successfully!", "success");
   const newParams = new URLSearchParams();
 
   Object.keys(values).forEach((key) => {
@@ -458,10 +514,53 @@ document.getElementById("submitButton")?.addEventListener("click", () => {
 
   // Navigate to the new URL
   window.location.href = `dashboard.html?${newParams.toString()}`;
+  }
+  console.log(matchNumber)
+  // Construct new URL parameters
 });
 
 // Initialize UI with updated values
 updateUI();
+function showNotification(message, type = 'success') {
+  const notificationContainer = document.getElementById('notifications-container');
+
+  const notification = document.createElement('div');
+  notification.classList.add('notification');
+  if (type === 'error') {
+    notification.classList.add('error');
+  }
+
+  notification.textContent = message;
+
+  // Add the notification to the container
+  notificationContainer.appendChild(notification);
+
+  // Remove the notification after animation ends
+  setTimeout(() => {
+    notification.remove();
+  }, 4000); // Matches the duration of the animation
+}
+
+
+document.getElementById("penalty-no").addEventListener("click", () => {
+  showNotification("Penalty set to No", "success");
+});
+
+document.getElementById("penalty-yes").addEventListener("click", () => {
+  showNotification("Penalty set to yes", "success");
+});
+document.getElementById("no-coop").addEventListener("click", () => {
+  showNotification("Coopertition set to no", "success");
+});
+document.getElementById("yes-coop").addEventListener("click", () => {
+  showNotification("Coopertition set to yes", "success");
+});
+document.getElementById("low").addEventListener("click", () => {
+  showNotification("Climb level set to deep", "success");
+});
+document.getElementById("high").addEventListener("click", () => {
+  showNotification("Climb level set to shallow", "success");
+});
 </script>
 </body>
 </html>
