@@ -87,6 +87,38 @@ const clickedCard = (cardName) => {
   total += 1;
   updateUI();
 };
+const undoCard= (cardName) => {
+  switch (cardName) {
+    case "Missed Goal":
+      num_missed_goals--; 
+      break;
+    case "Net Goal":
+      num_net_goals--;
+      break;
+    case "Processor Goal":
+      num_processor_goals--;
+      break;
+    case "Human Goal":
+      num_human_goals--;
+      break;
+    case "L1":
+      num_l1--;
+      break;
+    case "L2":
+      num_l2--;
+      break;
+    case "L3":
+      num_l3--;
+      break;
+    case "L4":
+      num_l4--;
+      break;
+    default: console.warn(`Unknown card: ${cardName}`); return; // Prevent updating total if card is unknown
+  }
+  lastAction = "undo";
+  total -= 1;
+  updateUI();
+};
 
 let params = new URLSearchParams(window.location.search);
 
@@ -130,6 +162,9 @@ document.getElementById('continue').addEventListener('click', validate);
 
 const undoLatestAction = () => {
   lastAction = "undo";
+  console.log(recentActions[0])
+  
+  undoCard(recentActions[0])
   recentActions.shift();
   total += 1;
   updateUI();
