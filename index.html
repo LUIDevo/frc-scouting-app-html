@@ -133,10 +133,10 @@ label, p {
   background-color: #1e66f5;
   color: #C3D8EB;
 }
-#human, #middle, #opposite {
+#processor, #middle, #opposite {
   border: 1px solid #818181;
 }
-#human.active, #middle.active, #opposite.active {
+#processor.active, #middle.active, #opposite.active {
   border: 1px solid #0D4FAF;
   background-color: #97B0ED;
 }
@@ -192,7 +192,7 @@ body, html {
           <div class="color-question-container">
             <label for="position-selection">Which side is the robot closest to?</label>
             <div class="position-container" role="group" aria-labelledby="position-selection">
-              <button type="button" class="box" id="human" role="button" aria-pressed="false">Processor</button>
+              <button type="button" class="box" id="processor" role="button" aria-pressed="false">Processor</button>
               <button type="button" class="box" id="middle" role="button" aria-pressed="false">Middle</button>
               <button type="button" class="box" id="opposite" role="button" aria-pressed="false">Opposite</button>
             </div>
@@ -212,21 +212,21 @@ function setTeam(color) {
   document.getElementById("blue").classList.toggle("active", color === "blue");
 }
 
-document.getElementById("human").addEventListener("click", () => setPosition("human"));
+document.getElementById("processor").addEventListener("click", () => setPosition("processor"));
 document.getElementById("middle").addEventListener("click", () => setPosition("middle"));
 document.getElementById("opposite").addEventListener("click", () => setPosition("opposite"));
 
 function setPosition(position) {
   teamPosition = position;
   // Clear existing active classes for positions
-  document.getElementById("human").classList.remove("active");
+  document.getElementById("processor").classList.remove("active");
   document.getElementById("middle").classList.remove("active");
   document.getElementById("opposite").classList.remove("active");
 
   // Set the active class based on the selected position
   switch (position) {
-    case "human":
-      document.getElementById("human").classList.add("active");
+    case "processor":
+      document.getElementById("processor").classList.add("active");
       break;
     case "middle":
       document.getElementById("middle").classList.add("active");

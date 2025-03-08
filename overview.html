@@ -349,6 +349,7 @@ let values = {
   comments: ""
 };
 
+
 // Extract parameters from the URL
 const params = new URLSearchParams(window.location.search);
 console.log("Loaded params:", params.toString());
@@ -372,6 +373,8 @@ params.forEach((value, key) => {
   if (key !== 'data' && value.trim() !== "") {
     values[key] = isNaN(value) ? value : parseFloat(value);
   }
+  document.getElementById('matchNumber').value = values.matchNumber;
+  document.getElementById('teamName').value = values.teamNumber;
 });
 
 // Update UI

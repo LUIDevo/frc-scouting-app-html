@@ -17,43 +17,54 @@
       function goBack() {
         window.location.href = "dashboard.html";
       }
-
 function loadGameDetails() {
   let params = new URLSearchParams(window.location.search);
-  let matchNumber = params.get("match");
 
-  if (matchNumber === null) {
-    console.error("No match number provided in the URL.");
-    document.getElementById("game-details").innerHTML = "<p>Match number not provided.</p>";
-    return;
-  }
-
-
-
-  let gameStats = gamesData[matchNumber];
-  let teamColorData = gamesData[`${matchNumber}_teamColor`];
+  let values = {
+    matchNumber: params.get("matchNumber") || "N/A",
+    teamNumber: params.get("teamNumber") || "N/A",
+    scoutId: params.get("scoutId") || "N/A",
+    teamPosition: params.get("teamPosition") || "N/A",
+    teamColor: params.get("teamColor") || "N/A",
+    num_human_goals: params.get("num_human_goals") || 0,
+    num_processor_goals: params.get("num_processor_goals") || 0,
+    num_missed_goals: params.get("num_missed_goals") || 0,
+    num_net_goals: params.get("num_net_goals") || 0,
+    num_l1: params.get("num_l1") || 0,
+    num_l2: params.get("num_l2") || 0,
+    num_l3: params.get("num_l3") || 0,
+    num_l4: params.get("num_l4") || 0,
+    climbLevel: params.get("climbLevel") || "N/A",
+    penalty: params.get("penalty") || "N/A",
+    coopertition: params.get("coopertition") || "N/A",
+    comments: params.get("comments") || "No comments"
+  };
 
   let details = document.getElementById("game-details");
   details.innerHTML = `
-    <h3>Match ${matchNumber}</h3>
-    <p><strong>Scout:</strong> ${gameStats.scoutId}</p>
-    <p><strong>Team Number:</strong> ${gameStats.teamNumber}</p>
-    <p><strong>Position:</strong> ${gameStats.teamPosition || "N/A"}</p>
-    <p><strong>Team Color:</strong> ${teamColorData.teamColor || "N/A"}</p>
+    <h3>Match ${values.matchNumber}</h3>
+    <p><strong>Scout:</strong> ${values.scoutId}</p>
+    <p><strong>Team Number:</strong> ${values.teamNumber}</p>
+    <p><strong>Position:</strong> ${values.teamPosition}</p>
+    <p><strong>Team Color:</strong> ${values.teamColor}</p>
     <h4>Stats</h4>
-    <p>Missed Goals: ${gameStats.num_missed_goals ?? "N/A"}</p>
-    <p>Human Goals: ${gameStats.num_human_goals ?? "N/A"}</p>
-    <p>Net Goals: ${gameStats.num_net_goals ?? "N/A"}</p>
-    <p>Processor Goals: ${gameStats.num_processor_goals ?? "N/A"}</p>
-    <p>L1: ${gameStats.num_l1 ?? "N/A"}</p>
-    <p>L2: ${gameStats.num_l2 ?? "N/A"}</p>
-    <p>L3: ${gameStats.num_l3 ?? "N/A"}</p>
-    <p>L4: ${gameStats.num_l4 ?? "N/A"}</p>
-    <p>Climb Level: ${gameStats.climbLevel ?? "N/A"}</p>
-    <p>Penalty: ${gameStats.penalty ?? "N/A"}</p>
+    <p>Missed Goals: ${values.num_missed_goals}</p>
+    <p>Human Goals: ${values.num_human_goals}</p>
+    <p>Net Goals: ${values.num_net_goals}</p>
+    <p>Processor Goals: ${values.num_processor_goals}</p>
+    <p>L1: ${values.num_l1}</p>
+    <p>L2: ${values.num_l2}</p>
+    <p>L3: ${values.num_l3}</p>
+    <p>L4: ${values.num_l4}</p>
+    <p>Climb Level: ${values.climbLevel}</p>
+    <p>Penalty: ${values.penalty}</p>
+    <p>Coopertition: ${values.coopertition}</p>
+    <p><strong>Comments:</strong> ${values.comments}</p>
   `;
 }
 
+window.onload = loadGameDetails;
+window.onload = loadGameDetails;
       window.onload = loadGameDetails;
     </script>
 
