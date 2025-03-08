@@ -26,7 +26,7 @@ header {
 .underline {
   height: 2px;
   width: 100%;
-  background-color: black;
+  background-color: white;
   margin-bottom: 24px;
   margin-top: 2px;
 }
@@ -37,7 +37,7 @@ input {
   padding: 12px 24px;
 }
 label, p {
-  color: black;
+  color: white;
 }
 /* Preset Styles */
 .flex {
@@ -57,12 +57,13 @@ label, p {
 /* Normal Styling */
 .content {
   position: absolute;
+  color: #F9F5D7;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: #1D2021;
   align-items: center;
   font-family: Jetbrains;
 }
@@ -80,27 +81,27 @@ label, p {
   width: 600px;
 }
 .sub-container {
-  gap: 24px;
+  gap: 8px;
 }
 .input-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 .color-question-container {
   margin-top: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 .color-container {
-  gap: 16px;
+  gap: 8px;
 }
 .position-container {
   margin-top: 2px;
   margin-bottom: 16px;
   display: flex;
-  gap: 16px;
+  gap: 8px;
 }
 .box {
   cursor: pointer;
@@ -108,6 +109,8 @@ label, p {
   justify-content: center;
   align-items: center;
   padding: 8px;
+  background-color: #F9F5D7;
+  color: black;
   width:50%;
   border-radius: 4px;
   transition: all 0.3s ease-in-out;
@@ -132,8 +135,8 @@ label, p {
   border: 1px solid #818181;
 }
 #human.active, #middle.active, #opposite.active {
-  border: 1px solid #0367FB;
-  background-color: #CAD5F0;
+  border: 1px solid #0D4FAF;
+  background-color: #97B0ED;
 }
 .submit-button {
   border-radius: 4px;
@@ -274,31 +277,29 @@ document.getElementById("scoutForm").addEventListener("submit", function(event) 
   console.log("Team Color:", teamColor);
 
   // Get the current games data from localStorage, or initialize if it doesn't exist
-  let gamesData = JSON.parse(localStorage.getItem("gamesData")) || {};
 
   // Add the current game data to the gamesData object
-  gamesData[matchNumber] = {
-    scoutId: scoutId,
-    teamNumber: teamNumber,
-    matchNumber: matchNumber,
-    teamPosition: teamPosition,
-    teamColor: teamColor
-  };
+gamesData[matchNumber] = {
+  matchNumber: matchNumber,
+  scoutId: scoutId,
+  teamNumber: teamNumber,
+  teamPosition: teamPosition,
+  teamColor: teamColor
+};
 
-  // Store the updated games data in localStorage
-  localStorage.setItem("gamesData", JSON.stringify(gamesData));
-  let gameData= JSON.parse(localStorage.getItem("gamesData")) || {};
-  let game = gameData[matchNumber];
 
-  if (game) {
-    let encodedData = encodeURIComponent(JSON.stringify(game));
+if (game) {
+  try {
+    let encodedData = encodeURIComponent(JSON.stringify(gamesData));
+    console.log("Encoded Data:", encodedData);
     setTimeout(() => {
       window.location.href = `match.html?data=${encodedData}`;
     }, 0);
+  } catch (error) {
+    console.error("Error encoding data:", error);
   }
+}
 });
 </script>
-  </body>
-</html>
   </body>
 </html>
