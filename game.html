@@ -6,6 +6,10 @@
       font-family: "Jetbrains";
       src: url(./fonts/JETBRAINSMONONL-MEDIUM.TTF);
     }
+    .button-container {
+      display: flex;
+      gap: 10px;
+    }
     * {
       box-sizing: border-box;
     }
@@ -79,6 +83,13 @@
       border-radius: 4px;
       font-family: Jetbrains;
     }
+    .spreadsheet {
+      background-color: #8BED8F;
+      color: black;
+      zoom: 0.125;
+      padding: 30px 120px;
+      border-radius: 40px;
+    }
     </style>
   </head>
   <body>
@@ -86,8 +97,16 @@
       <div class="content">
         <div class="top-content">
           <div class="header">Game Details</div>
+          <div class="button-container">
+            <button onclick="copyToClipboard()" class="spreadsheet"><svg width="800px" height="800px" style="zoom: 0.25" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M10 7.99542V10H8V7.99542H10Z" fill="#000000"/>
+<path d="M10 4.99738V6.99542H8V4.99738H10Z" fill="#000000"/>
+<path d="M7 4.99738H5V6.99542H7V4.99738Z" fill="#000000"/>
+<path d="M7 7.99542H5V10H7V7.99542Z" fill="#000000"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1 1.5C1 0.671573 1.67157 0 2.5 0H10.7071L14 3.29289V13.5C14 14.3284 13.3284 15 12.5 15H2.5C1.67157 15 1 14.3284 1 13.5V1.5ZM11 3.99738H4V11H11V3.99738Z" fill="#000000"/>
+</svg></button>
           <button onclick="goBack()">Back to Dashboard</button>
-          <button onclick="copyToClipboard()">Copy to clipboard</button>
+          </div>
         </div>
         <div id="game-details" class="game-details"></div>
       </div>
