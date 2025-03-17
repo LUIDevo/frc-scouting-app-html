@@ -163,7 +163,8 @@ function copyToClipboard() {
         climbLevel: params.get("climbLevel") || "N/A",
         penalty: params.get("penalty") || "N/A",
         coopertition: params.get("coopertition") || "N/A",
-        comments: params.get("comments") || "No comments"
+        comments: params.get("comments") || "No comments",
+        autoComments: params.get("autoComments") || "No autoComments"
       };
 
       let details = document.getElementById("game-details");
@@ -193,6 +194,7 @@ function copyToClipboard() {
   <p><strong>Penalty:</strong> ${values.penalty}</p>
   <p><strong>Coopertition:</strong> ${values.coopertition}</p>
   <p><strong>Comments:</strong> ${values.comments}</p>
+  <p><strong>Auto Comments:</strong> ${values.autoComments}</p>
 </div>
 `;
     }

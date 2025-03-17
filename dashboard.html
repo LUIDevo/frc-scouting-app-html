@@ -32,7 +32,7 @@
       let keys = [
         "matchNumber", "teamNumber", "scoutId", "teamPosition", "teamColor", 
         "num_human_goals", "num_processor_goals", "num_missed_goals", "num_net_goals", 
-        "num_l1", "num_l2", "num_l3", "num_l4", "climbLevel", "penalty", "coopertition", "comments"
+        "num_l1", "num_l2", "num_l3", "num_l4", "climbLevel", "penalty", "coopertition", "comments", "autoComments"
       ];
       rows.push(keys.join("\t"));
 
@@ -92,7 +92,8 @@
           climbLevel: params.get("climbLevel") || "N/A",
           penalty: params.get("penalty") || "N/A",
           coopertition: params.get("coopertition") || "N/A",
-          comments: params.get("comments") || "No comments"
+          comments: params.get("comments") || "No comments",
+          autoComments: params.get("autoComments") || "No comments"
         };
 
         localStorage.setItem(`match_${matchNumber}`, JSON.stringify(gameData));
