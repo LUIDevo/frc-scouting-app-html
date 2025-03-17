@@ -252,6 +252,7 @@ button {
         <div class="card-container">
           <div class="card" id="low">Deep</div>
           <div class="card" id="high">Shallow</div>
+          <div class="card" id="park">Park</div>
           <div class="card" id="failed">Failed</div>
         </div>
       </div>
@@ -271,7 +272,7 @@ button {
       </div>
         <div class="input-container col">
           <label>Match Number:</label>
-          <input id="matchNumber" type="number">
+          <input id="matchNumber" type="text">
         </div>
         <div class="input-container col">
           <label>Team Name:</label>
@@ -382,11 +383,12 @@ document.getElementById("yes-coop").addEventListener("click", () => setCoop("yes
 
 document.getElementById("high").addEventListener("click", () => setClimbLevel("high"));
 document.getElementById("low").addEventListener("click", () => setClimbLevel("low"));
+document.getElementById("park").addEventListener("click", () => setClimbLevel("park"));
 document.getElementById("failed").addEventListener("click", () => setClimbLevel("failed"));
 
 let values = {
   teamNumber: 0,
-  matchNumber: 0,
+  matchNumber: "",
   teamPosition: "",
   teamColor: "",
   num_human_goals: 0,
@@ -473,6 +475,7 @@ function setClimbLevel(climbLevel) {
   document.getElementById("high").classList.remove("active");
   document.getElementById("low").classList.remove("active");
   document.getElementById("failed").classList.remove("active");
+  document.getElementById("park").classList.remove("active");
 
   // Set the active class based on the selected position
   switch (climbLevel) {
@@ -484,6 +487,9 @@ function setClimbLevel(climbLevel) {
       break;
     case "failed":
       document.getElementById("failed").classList.add("active");
+      break;
+    case "park":
+      document.getElementById("park").classList.add("active");
       break;
   }
 }
@@ -579,6 +585,9 @@ document.getElementById("high").addEventListener("click", () => {
 });
 document.getElementById("failed").addEventListener("click", () => {
   showNotification("Climb level set to failed", "success");
+});
+document.getElementById("park").addEventListener("click", () => {
+  showNotification("Climb level set to park", "success");
 });
 </script>
 </body>

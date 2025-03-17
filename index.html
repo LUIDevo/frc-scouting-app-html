@@ -178,7 +178,7 @@ body, html {
             <input id="matchNumber" placeholder="eg. 12" type="text">
           </div>
           <div class="input-container col">
-            <label>What is the team you are scouting?</label>
+            <label>What is the team you are scouting (number)?</label>
             <input id="teamNumber" placeholder="eg. 6632" type="text">
           </div>
           <div class="color-question-container">
@@ -246,8 +246,8 @@ document.getElementById("scoutForm").addEventListener("submit", function(event) 
   event.preventDefault();
 
   const scoutId = document.getElementById("scoutId").value.trim();
-  const teamNumber = parseInt(document.getElementById("teamNumber").value, 10);
-  const matchNumber = parseInt(document.getElementById("matchNumber").value, 10);
+  const teamNumber = document.getElementById("teamNumber").value.trim();
+  const matchNumber = document.getElementById("matchNumber").value.trim();
 
   if (!scoutId) {
     console.error("Scout ID is missing");
@@ -267,14 +267,6 @@ document.getElementById("scoutForm").addEventListener("submit", function(event) 
   }
   if (!teamColor) {
     console.error("Team Color is missing");
-    return;
-  }
-  if (teamNumber <= 0) {
-    console.error("Team number is invalid");
-    return;
-  }
-  if (matchNumber <= 0) {
-    console.error("Match number is invalid");
     return;
   }
 
