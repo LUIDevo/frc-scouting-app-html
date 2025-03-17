@@ -8,7 +8,7 @@ This app is designed for almost any device, and it was specifically designed to 
 - Be cautious with your comments. Try not to add slashes or backslashes or anything of that sort that could potentially break the app.
 - Almost all data is saved in checkpoints, but some data will be erased if you close or refresh the tab mid game (eg. counters get reset on match.html).
 
-## > Make sure you download the app before the trip, as there wont be wifi there.
+## Make sure you download the app before the trip, as there wont be wifi there.
 
 Additional notes: 
 If you are scouting a practice match, put practice followed by any number in index.html for the match number input. Just be sure that you didnt use this number before in practice, or it will overwrite the previous log!
