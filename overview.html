@@ -252,6 +252,7 @@ button {
         <div class="card-container">
           <div class="card" id="low">Deep</div>
           <div class="card" id="high">Shallow</div>
+          <div class="card" id="failed">Failed</div>
         </div>
       </div>
       <div class="card-container-container">
@@ -381,6 +382,7 @@ document.getElementById("yes-coop").addEventListener("click", () => setCoop("yes
 
 document.getElementById("high").addEventListener("click", () => setClimbLevel("high"));
 document.getElementById("low").addEventListener("click", () => setClimbLevel("low"));
+document.getElementById("failed").addEventListener("click", () => setClimbLevel("failed"));
 
 let values = {
   teamNumber: 0,
@@ -468,8 +470,22 @@ function setCoop(coop) {
 
 function setClimbLevel(climbLevel) {
   values.climbLevel = climbLevel;
-  document.getElementById("high").classList.toggle("active", climbLevel === "high");
-  document.getElementById("low").classList.toggle("active", climbLevel === "low");
+  document.getElementById("high").classList.remove("active");
+  document.getElementById("low").classList.remove("active");
+  document.getElementById("failed").classList.remove("active");
+
+  // Set the active class based on the selected position
+  switch (climbLevel) {
+    case "high":
+      document.getElementById("high").classList.add("active");
+      break;
+    case "low":
+      document.getElementById("low").classList.add("active");
+      break;
+    case "failed":
+      document.getElementById("failed").classList.add("active");
+      break;
+  }
 }
 
 function setPenalty(penalty) {
@@ -560,6 +576,9 @@ document.getElementById("low").addEventListener("click", () => {
 });
 document.getElementById("high").addEventListener("click", () => {
   showNotification("Climb level set to shallow", "success");
+});
+document.getElementById("failed").addEventListener("click", () => {
+  showNotification("Climb level set to failed", "success");
 });
 </script>
 </body>
