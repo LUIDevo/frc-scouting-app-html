@@ -8,22 +8,81 @@
         <div class="top-content">
           <div class="header">Your scouting logs</div>
           <div class="button-container">
+            <button onclick="clearLogs()" class="clear-log">Clear all logs</button>
             <button onclick="copyToClipboard()" class="spreadsheet"><svg width="800px" height="800px" style="zoom: 0.25" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M10 7.99542V10H8V7.99542H10Z" fill="#000000"/>
 <path d="M10 4.99738V6.99542H8V4.99738H10Z" fill="#000000"/>
 <path d="M7 4.99738H5V6.99542H7V4.99738Z" fill="#000000"/>
 <path d="M7 7.99542H5V10H7V7.99542Z" fill="#000000"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M1 1.5C1 0.671573 1.67157 0 2.5 0H10.7071L14 3.29289V13.5C14 14.3284 13.3284 15 12.5 15H2.5C1.67157 15 1 14.3284 1 13.5V1.5ZM11 3.99738H4V11H11V3.99738Z" fill="#000000"/>
-</svg></button>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1 1.5C1 0.671573 1.67157 0 2.5 0H10.7071L14 3.29289V13.5C14 14.3284 13.3284 15 12.5 15H2.5C1.67157 15 1 14.3284 1 13.5V1.5ZM11 3.99738H4V11H11V3.99738Z" fill="#000000"/> </svg></button>
             <button onclick="clicked()" class="new-log">Create new log</button>
           </div>
         </div>
-        <div id="card-container" class="card-container"></div>
+        <div id="card-container" class="card-container"> </div>
       </div>
     </div>
     <div class="notification" id="notification"></div>
+    <div class="log-popup-container" id="popup-container">
+      <div class="popup">
+        <b>Warning:</b><span id="finalPopupText"> This will wipe all data on this page with no way to recover it. Make sure to confirm ONLY if you have already pasted the data into the spreadsheet.</span>
+        <div style="display: flex; justify-content: flex-end;">
+          <button class="cancel" onclick="closePopup('popup-container')">Cancel</button>
+          <button onclick="confirm1()">Confirm</button>
+        </div>
+      </div>
+    </div>
 
+  <div class="log-popup-container " id="second-popup-container">
+    <div class="popup secondary">
+      <b>Final Warning:</b> Are you really really really sure you want to delete all the logs? This cannot be undone.
+      <div style="display: flex; justify-content: flex-end;">
+        <button class="cancel" onclick="closePopup('second-popup-container')">Cancel</button>
+        <button onclick="confirmFinal()">Confirm</button>
+      </div>
+    </div>
+  </div>
     <script>
+function clearLogs() {
+  let popupContainer = document.getElementById('popup-container');
+  popupContainer.style.display = 'flex'; // Show the first popup
+  popupContainer.style.animation = 'appear 0.3s ease-in-out forwards';
+  popupContainer.style.pointerEvents = 'auto';
+}
+
+function closePopup(popupId) {
+  let popupContainer = document.getElementById(popupId);
+  popupContainer.style.animation = 'fadeOut 0.3s forwards ease-in-out';
+  setTimeout(() => {
+    popupContainer.style.display = 'none';
+  }, 300);
+}
+
+function confirm1() {
+  let secondPopup = document.getElementById('second-popup-container');
+  secondPopup.style.display = 'flex'; // Show the second confirmation popup
+  secondPopup.style.animation = 'appear 0.3s ease-in-out forwards';
+  secondPopup.style.pointerEvents = 'auto';
+}
+
+function confirmFinal() {
+  showNotification("Alright, if you say so...");
+  closePopup('popup-container');
+  closePopup('second-popup-container');
+  try {
+    localStorage.clear();
+    console.log("ere")
+  } catch(err) {
+    console.log("err")
+    showNotification(err);
+  }
+  setTimeout(() => {
+    showNotification("Logs cleared successfully! Please wait while the page reloads.");
+  }, 1500); // Delay to give time for the message to be seen
+  setTimeout(() => {
+  window.location.href = "dashboard.html";
+  }, 3000); // Delay to give time for the message to be seen
+}
+
     function clicked() {
       window.location.href = "index.html";
     }
@@ -103,28 +162,39 @@
       }
     }
 
-    function loadGames() {
-      const container = document.getElementById("card-container");
-      container.innerHTML = "";
+function loadGames() {
+  const container = document.getElementById("card-container");
+  container.innerHTML = "";
 
-      Object.keys(localStorage).forEach(key => {
-        if (!key.startsWith("match_")) return;
-        const game = JSON.parse(localStorage.getItem(key));
+  // Check if there are any match logs
+  const matchKeys = Object.keys(localStorage).filter(key => key.startsWith("match_"));
+  
+  if (matchKeys.length === 0) {
+    // If no match logs, show a message
+    const noLogsMessage = document.createElement("p");
+    noLogsMessage.className = "no-logs-message";
+    noLogsMessage.innerHTML = "Looks like you don't have any logs yet. Click 'Create new log' to start!";
+    container.appendChild(noLogsMessage);
+  } else {
+    // If match logs exist, create the cards
+    matchKeys.forEach(key => {
+      const game = JSON.parse(localStorage.getItem(key));
 
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-<div class="card-content">
-  <h3>Match ${game.matchNumber}</h3>
-  <p>Team: ${game.teamNumber}</p>
-  <p>Scout: ${game.scoutId}</p>
-  <p>Comments: ${game.comments}</p>
-  <button onclick="viewGame('${game.matchNumber}')">View Details</button>
-</div>
-`;
-        container.appendChild(card);
-      });
-    }
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="card-content">
+          <h3>Match ${game.matchNumber}</h3>
+          <p>Team: ${game.teamNumber}</p>
+          <p>Scout: ${game.scoutId}</p>
+          <p>Comments: ${game.comments}</p>
+          <button onclick="viewGame('${game.matchNumber}')">View Details</button>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+}
 
     function viewGame(matchNumber) {
       console.log("viewGame called with matchNumber:", matchNumber);
@@ -256,9 +326,70 @@
       border-radius: 4px;
     }
     .new-log {
-      background-color: white;
       color: black;
+  
     }
+    .clear-log {
+    background-color: #9d0006;
+      color: white;
+      font-size: 14px;
+    }
+.log-popup-container {
+  display: none; 
+  position: fixed; 
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.6); 
+}
+
+.popup {
+  background-color: #282828;
+  color: white;
+  border: 2px solid #cc241d;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+  max-width: 400px;
+  text-align: center;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes disappear {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+    .cancel {
+    background-color: transparent;
+    color: white;
+    font-size: 14px;
+    }
+.secondary {
+    padding: 5% 5%;
+    border: none;
+}
     </style>
   </body>
 </html>
